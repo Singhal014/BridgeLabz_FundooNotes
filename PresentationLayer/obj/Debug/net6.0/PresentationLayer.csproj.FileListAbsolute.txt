@@ -82,3 +82,4 @@ E:\C#\ThreeTierArchitecture\PresentationLayer\bin\Debug\net6.0\Microsoft.Bcl.Asy
 E:\C#\ThreeTierArchitecture\PresentationLayer\bin\Debug\net6.0\Microsoft.Bcl.Memory.dll
 E:\C#\ThreeTierArchitecture\PresentationLayer\bin\Debug\net6.0\Microsoft.Bcl.TimeProvider.dll
 E:\C#\ThreeTierArchitecture\PresentationLayer\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+E:\C#\ThreeTierArchitecture\PresentationLayer\obj\Debug\net6.0\PresentationLayer.sourcelink.json

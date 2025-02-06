@@ -5716,6 +5716,7 @@
     "net6.0": [
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.1",
       "Microsoft.AspNetCore.Mvc.Core >= 2.1.38",
+      "Microsoft.Bcl.Memory >= 8.0.0",
       "Microsoft.EntityFrameworkCore >= 6.0.33",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.33",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.33",
@@ -5781,6 +5782,10 @@
             "target": "Package",
             "version": "[2.1.38, )"
           },
+          "Microsoft.Bcl.Memory": {
+            "target": "Package",
+            "version": "[8.0.0, )"
+          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[6.0.33, )"
@@ -5825,5 +5830,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1603",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "DataAccessLayer depends on Microsoft.Bcl.Memory (>= 8.0.0) but Microsoft.Bcl.Memory 8.0.0 was not found. Microsoft.Bcl.Memory 9.0.0 was resolved instead.",
+      "libraryId": "Microsoft.Bcl.Memory",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

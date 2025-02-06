@@ -1901,6 +1901,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.1",
           "Microsoft.AspNetCore.Mvc.Core": "2.1.38",
+          "Microsoft.Bcl.Memory": "8.0.0",
           "Microsoft.EntityFrameworkCore": "6.0.33",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.33",
           "System.IdentityModel.Tokens.Jwt": "8.3.1"
@@ -5710,6 +5711,7 @@
     "net6.0": [
       "DataAccessLayer >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.Core >= 2.1.38",
+      "Microsoft.Bcl.Memory >= 9.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.33"
     ]
   },
@@ -5770,6 +5772,10 @@
           "Microsoft.AspNetCore.Mvc.Core": {
             "target": "Package",
             "version": "[2.1.38, )"
+          },
+          "Microsoft.Bcl.Memory": {
+            "target": "Package",
+            "version": "[9.0.0, )"
           },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

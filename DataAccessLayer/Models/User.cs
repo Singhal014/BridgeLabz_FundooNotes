@@ -1,22 +1,31 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DataAccessLayer.Models;
+using System.Text.Json.Serialization;
 
-namespace DataAccessLayer.Models
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+public class User
 {
-    public class User
-    {
-        public int Id { get; set; } 
+    [JsonIgnore]
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
 
-        [Required]
-        public string FirstName { get; set; }
+    [Required, MaxLength(50)]
+    public string FirstName { get; set; }
 
-        [Required]
-        public string LastName { get; set; }
+    [Required, MaxLength(50)]
+    public string LastName { get; set; }
 
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+    [Required, EmailAddress, MaxLength(100)]
+    public string Email { get; set; }
 
-        [Required]
-        public string Password { get; set; } // Hashed before storing
-    }
+    [Required, MinLength(6)]
+    public string Password { get; set; }
+
+    [JsonIgnore]
+    public bool IsVerified { get; set; } = false;
+
+    [JsonIgnore]
+    public ICollection<Note> Notes { get; set; } = new List<Note>();
 }

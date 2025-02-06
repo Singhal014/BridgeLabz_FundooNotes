@@ -7,7 +7,17 @@ namespace DataAccessLayer.Context
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<Fundoonote> Fundoonotes { get; set; } 
+        public DbSet<Note> Notes { get; set; }
         public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Define the foreign key relationship explicitly
+            modelBuilder.Entity<Note>()
+                .HasOne(n => n.User) // Navigation property to User
+                .WithMany(u => u.Notes) // One User can have many Notes
+                .HasForeignKey(n => n.CreatedBy) // Foreign key property
+                .OnDelete(DeleteBehavior.Cascade); // When User is deleted, related Notes are also deleted
+        }
     }
 }

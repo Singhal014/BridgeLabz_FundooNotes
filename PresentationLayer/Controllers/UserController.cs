@@ -2,95 +2,96 @@
 using BusinessLogicLayer.Services;
 using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
-namespace PresentationLayer.Controllers
+[Route("api/users")]
+[ApiController]
+public class UserController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UserController : ControllerBase
+    private readonly IUserService _userService;
+    private readonly AuthService _authService;
+
+    public UserController(IUserService userService, AuthService authService)
     {
-        private readonly IUserService _userService;
-        private readonly AuthService _authService;
+        _userService = userService;
+        _authService = authService;
+    }
 
-        public UserController(IUserService userService, AuthService authService)
+    // Register user
+    [HttpPost]
+    public IActionResult Register([FromBody] User user)
+    {
+        try
         {
-            _userService = userService;
-            _authService = authService;
+            var token = _userService.RegisterUser(user);
+            return Ok(new { Message = "User registered. Check your email for the token.", Success = true, Token = token });
         }
-
-        // POST: api/User/register
-        [HttpPost("register")]
-        public IActionResult Register([FromBody] User user)
+        catch (InvalidOperationException ex)
         {
-            if (user == null || string.IsNullOrEmpty(user.FirstName) || string.IsNullOrEmpty(user.LastName) ||
-                string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.Password))
-            {
-                return BadRequest(new UserResponseModel
-                {
-                    Message = "First name, last name, email, and password are required.",
-                    Success = false,
-                    Data = null
-                });
-            }
-
-            // Register the user
-            _userService.RegisterUser(user);
-
-            // Return the response without the Id
-            return Ok(new UserResponseModel
-            {
-                Message = "User registered successfully.",
-                Success = true,
-                Data = new
-                {
-                    user.FirstName,
-                    user.LastName,
-                    user.Email
-                }
-            });
+            return Conflict(new { Message = ex.Message, Success = false });
         }
+    }
 
-        // POST: api/User/login
-        [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginModel loginModel)
+    // Login user
+    [HttpPost("login")]
+    public IActionResult Login([FromBody] LoginModel loginModel)
+    {
+        try
         {
-            if (loginModel == null || string.IsNullOrEmpty(loginModel.Email) || string.IsNullOrEmpty(loginModel.Password))
-            {
-                return BadRequest(new UserResponseModel
-                {
-                    Message = "Email and password are required.",
-                    Success = false,
-                    Data = null
-                });
-            }
+            var user = _userService.LoginUser(loginModel.Email, loginModel.Password);
+            var token = _authService.GenerateJwtToken(user);
+            return Ok(new { Message = "Login successful.", Token = token });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Unauthorized(new { Message = ex.Message, Success = false });
+        }
+    }
 
-            var authenticatedUser = _userService.LoginUser(loginModel.Email, loginModel.Password);
-            if (authenticatedUser == null)
-            {
-                return Unauthorized(new UserResponseModel
-                {
-                    Message = "Invalid credentials.",
-                    Success = false,
-                    Data = null
-                });
-            }
+    // Reset Password (using JWT token)
+    [HttpPost("reset-password")]
+    public IActionResult ResetPassword([FromBody] ResetPasswordModel model, [FromHeader] string token)
+    {
+        try
+        {
+            // Use the token to reset password without requiring email
+            var result = _userService.ResetPassword(token, model.CurrentPassword, model.NewPassword);
+            return Ok(new { Message = "Password reset successfully.", Success = true });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { Message = ex.Message, Success = false });
+        }
+    }
 
-            // Generate JWT token
-            var token = _authService.GenerateJwtToken(authenticatedUser);
+    // Forgot Password (sends a token to the email)
+    [HttpPost("forgot-password")]
+    public IActionResult ForgotPassword([FromBody] ForgotPasswordModel model)
+    {
+        try
+        {
+            var result = _userService.ForgotPassword(model.Email);
+            return Ok(new { Message = "Password reset link sent to your email.", Success = true });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { Message = ex.Message, Success = false });
+        }
+    }
 
-            // Return the response without the Id
-            return Ok(new UserResponseModel
-            {
-                Message = "Login successful.",
-                Success = true,
-                Data = new
-                {
-                    authenticatedUser.FirstName,
-                    authenticatedUser.LastName,
-                    authenticatedUser.Email,
-                    Token = token
-                }
-            });
+    // Confirm Reset Password (using JWT token)
+    [HttpPost("reset-password-confirm")]
+    public IActionResult ResetPasswordConfirm([FromQuery] string token, [FromBody] NewPasswordModel model)
+    {
+        try
+        {
+            // Use the token to reset the password without requiring email
+            var result = _userService.ResetPasswordConfirm(token, model.NewPassword);
+            return Ok(new { Message = "Password reset successfully.", Success = true });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { Message = ex.Message, Success = false });
         }
     }
 }

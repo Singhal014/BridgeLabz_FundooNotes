@@ -10,6 +10,7 @@
         "dependencies": {
           "DataAccessLayer": "1.0.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.1.38",
+          "Microsoft.Bcl.Memory": "9.0.0",
           "Microsoft.EntityFrameworkCore.Design": "6.0.33"
         },
         "runtime": {
@@ -1027,6 +1028,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.1",
           "Microsoft.AspNetCore.Mvc.Core": "2.1.38",
+          "Microsoft.Bcl.Memory": "9.0.0",
           "Microsoft.EntityFrameworkCore": "6.0.33",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.33",
           "System.IdentityModel.Tokens.Jwt": "8.3.1"

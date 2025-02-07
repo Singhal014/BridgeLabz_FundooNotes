@@ -16,3 +16,5 @@ E:\C#\ThreeTierArchitecture\BusinessLogicLayer\obj\Debug\net6.0\ref\BusinessLogi
 E:\C#\ThreeTierArchitecture\BusinessLogicLayer\bin\Debug\net6.0\BusinessLogicLayer.runtimeconfig.json
 E:\C#\ThreeTierArchitecture\BusinessLogicLayer\obj\Debug\net6.0\BusinessLogicLayer.genruntimeconfig.cache
 E:\C#\ThreeTierArchitecture\BusinessLogicLayer\obj\Debug\net6.0\BusinessLogicLayer.sourcelink.json
+E:\C#\ThreeTierArchitecture\BusinessLogicLayer\bin\Debug\net6.0\ModelLayer.dll
+E:\C#\ThreeTierArchitecture\BusinessLogicLayer\bin\Debug\net6.0\ModelLayer.pdb

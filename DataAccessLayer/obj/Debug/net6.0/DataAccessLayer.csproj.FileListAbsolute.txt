@@ -13,3 +13,6 @@ E:\C#\ThreeTierArchitecture\DataAccessLayer\obj\Debug\net6.0\refint\DataAccessLa
 E:\C#\ThreeTierArchitecture\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.pdb
 E:\C#\ThreeTierArchitecture\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.genruntimeconfig.cache
 E:\C#\ThreeTierArchitecture\DataAccessLayer\obj\Debug\net6.0\ref\DataAccessLayer.dll
+E:\C#\ThreeTierArchitecture\DataAccessLayer\bin\Debug\net6.0\ModelLayer.dll
+E:\C#\ThreeTierArchitecture\DataAccessLayer\bin\Debug\net6.0\ModelLayer.pdb
+E:\C#\ThreeTierArchitecture\DataAccessLayer\obj\Debug\net6.0\DataAcce.E67BD773.Up2Date

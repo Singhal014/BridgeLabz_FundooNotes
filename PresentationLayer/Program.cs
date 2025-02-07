@@ -19,14 +19,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register repositories
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<INoteRepository, NoteRepository>();
+builder.Services.AddScoped<IUserRL, UserRL>();
+builder.Services.AddScoped<INoteDl, NoteRL>();
 
 // Register services
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<INoteService, NoteService>();
-builder.Services.AddScoped<AuthService>();
-builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IUserBl, UserBl>();
+builder.Services.AddScoped<INoteService, NoteBl>();
 
 // ?? Add JWT Authentication with Default Authentication Scheme
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -89,7 +87,7 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -101,7 +99,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// ?? Ensure authentication is applied before authorization
 app.UseAuthentication();
 app.UseAuthorization();
 

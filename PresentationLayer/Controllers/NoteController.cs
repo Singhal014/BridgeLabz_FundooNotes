@@ -1,44 +1,26 @@
 ﻿using BusinessLogicLayer.Interfaces;
-using BusinessLogicLayer.Services;
-using DataAccessLayer.Entity;
 using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PresentationLayer.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/note")]
     [ApiController]
     public class NoteController : ControllerBase
     {
         private readonly INoteService _noteService;
-        private readonly AuthService _authService;
 
-        public NoteController(INoteService noteService, AuthService authService)
+        public NoteController(INoteService noteService)
         {
             _noteService = noteService;
-            _authService = authService;
         }
 
-        // Extract userId from token
-        private int GetUserIdFromToken()
-        {
-            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-            var userClaims = _authService.DecodeJwtToken(token);
-
-            if (userClaims.TryGetValue("UserId", out string userIdString) && int.TryParse(userIdString, out int userId))
-            {
-                return userId;
-            }
-
-            throw new UnauthorizedAccessException("Invalid token.");
-        }
-
-        // Create Note
-        [HttpPost("create")]
+        [HttpPost]
         [Authorize]
-        public IActionResult Create([FromBody] NoteDto noteDto)
+        public IActionResult Create([FromBody] NoteModel noteDto)
         {
             if (noteDto == null || string.IsNullOrEmpty(noteDto.Title) || string.IsNullOrEmpty(noteDto.Description))
             {
@@ -66,15 +48,14 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        // Get All Notes of Logged-in User
-        [HttpGet]
+        [HttpGet("getnotes")]
         [Authorize]
         public IActionResult GetAllNotes()
         {
             try
             {
                 int userId = GetUserIdFromToken();
-                var notes = _noteService.GetAllNotes().Where(n => n.CreatedBy == userId);
+                var notes = _noteService.GetAllNotes()?.Where(n => n.CreatedBy == userId) ?? new List<Note>();
 
                 return Ok(new { Message = "Notes retrieved successfully.", Success = true, Data = notes });
             }
@@ -84,7 +65,6 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        // Get Note by ID (only if it belongs to the logged-in user)
         [HttpGet("{id}")]
         [Authorize]
         public IActionResult GetNote(int id)
@@ -107,10 +87,9 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        // Update Note (only if it belongs to the logged-in user)
         [HttpPut("update/{id}")]
         [Authorize]
-        public IActionResult Update(int id, [FromBody] NoteDto noteDto)
+        public IActionResult Update([FromRoute] int id, [FromBody] NoteModel noteDto)
         {
             if (noteDto == null || string.IsNullOrEmpty(noteDto.Title) || string.IsNullOrEmpty(noteDto.Description))
             {
@@ -139,10 +118,9 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        // Delete Note (only if it belongs to the logged-in user)
         [HttpDelete("delete/{id}")]
         [Authorize]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromRoute] int id)
         {
             try
             {
@@ -161,6 +139,18 @@ namespace PresentationLayer.Controllers
             {
                 return Unauthorized(new { Message = ex.Message, Success = false });
             }
+        }
+
+        private int GetUserIdFromToken()
+        {
+            var authHeader = Request.Headers["Authorization"].ToString();
+            if (string.IsNullOrEmpty(authHeader) || !authHeader.StartsWith("Bearer "))
+            {
+                throw new UnauthorizedAccessException("Invalid or missing token.");
+            }
+
+            var token = authHeader.Replace("Bearer ", "");
+            return _noteService.GetUserIdFromToken(token);
         }
     }
 }

@@ -1,24 +1,21 @@
 ﻿using BusinessLogicLayer.Interfaces;
-using BusinessLogicLayer.Services;
 using DataAccessLayer.Models;
+using Microsoft.AspNetCore.Authorization; // Add this for [Authorize]
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 [Route("api/users")]
 [ApiController]
 public class UserController : ControllerBase
 {
-    private readonly IUserService _userService;
-    private readonly AuthService _authService;
+    private readonly IUserBl _userService;
 
-    public UserController(IUserService userService, AuthService authService)
+    public UserController(IUserBl userService)
     {
         _userService = userService;
-        _authService = authService;
     }
 
     // Register user
-    [HttpPost]
+    [HttpPost("register")]
     public IActionResult Register([FromBody] User user)
     {
         try
@@ -39,7 +36,7 @@ public class UserController : ControllerBase
         try
         {
             var user = _userService.LoginUser(loginModel.Email, loginModel.Password);
-            var token = _authService.GenerateJwtToken(user);
+            var token = _userService.GenerateJwtToken(user);
             return Ok(new { Message = "Login successful.", Token = token });
         }
         catch (InvalidOperationException ex)
@@ -48,13 +45,15 @@ public class UserController : ControllerBase
         }
     }
 
-    // Reset Password (using JWT token)
+    // Reset Password (Token from Authorization Header)
+    [Authorize] // Ensure token is sent in the Authorization header
     [HttpPost("reset-password")]
-    public IActionResult ResetPassword([FromBody] ResetPasswordModel model, [FromHeader] string token)
+    public IActionResult ResetPassword([FromBody] ResetPasswordModel model)
     {
         try
         {
-            // Use the token to reset password without requiring email
+            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "").Trim();
+
             var result = _userService.ResetPassword(token, model.CurrentPassword, model.NewPassword);
             return Ok(new { Message = "Password reset successfully.", Success = true });
         }
@@ -64,7 +63,7 @@ public class UserController : ControllerBase
         }
     }
 
-    // Forgot Password (sends a token to the email)
+    // Forgot Password
     [HttpPost("forgot-password")]
     public IActionResult ForgotPassword([FromBody] ForgotPasswordModel model)
     {
@@ -79,13 +78,15 @@ public class UserController : ControllerBase
         }
     }
 
-    // Confirm Reset Password (using JWT token)
+    
+    [Authorize] 
     [HttpPost("reset-password-confirm")]
-    public IActionResult ResetPasswordConfirm([FromQuery] string token, [FromBody] NewPasswordModel model)
+    public IActionResult ResetPasswordConfirm([FromBody] NewPasswordModel model)
     {
         try
         {
-            // Use the token to reset the password without requiring email
+            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "").Trim();
+
             var result = _userService.ResetPasswordConfirm(token, model.NewPassword);
             return Ok(new { Message = "Password reset successfully.", Success = true });
         }

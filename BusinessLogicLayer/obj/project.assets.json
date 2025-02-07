@@ -1904,6 +1904,8 @@
           "Microsoft.Bcl.Memory": "8.0.0",
           "Microsoft.EntityFrameworkCore": "6.0.33",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.33",
+          "ModelLayer": "1.0.0",
+          "ModelLayerr": "1.0.0",
           "System.IdentityModel.Tokens.Jwt": "8.3.1"
         },
         "compile": {
@@ -1911,6 +1913,26 @@
         },
         "runtime": {
           "bin/placeholder/DataAccessLayer.dll": {}
+        }
+      },
+      "ModelLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/ModelLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ModelLayer.dll": {}
+        }
+      },
+      "ModelLayerr/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/ModelLayerr.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ModelLayerr.dll": {}
         }
       }
     }
@@ -5705,6 +5727,16 @@
       "type": "project",
       "path": "../DataAccessLayer/DataAccessLayer.csproj",
       "msbuildProject": "../DataAccessLayer/DataAccessLayer.csproj"
+    },
+    "ModelLayer/1.0.0": {
+      "type": "project",
+      "path": "../ModelLayer/ModelLayer.csproj",
+      "msbuildProject": "../ModelLayer/ModelLayer.csproj"
+    },
+    "ModelLayerr/1.0.0": {
+      "type": "project",
+      "path": "../ModelLayerr/ModelLayerr.csproj",
+      "msbuildProject": "../ModelLayerr/ModelLayerr.csproj"
     }
   },
   "projectFileDependencyGroups": {

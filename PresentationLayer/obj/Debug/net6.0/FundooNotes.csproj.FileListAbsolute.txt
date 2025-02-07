@@ -83,3 +83,5 @@ E:\C#\ThreeTierArchitecture\PresentationLayer\obj\Debug\net6.0\refint\FundooNote
 E:\C#\ThreeTierArchitecture\PresentationLayer\obj\Debug\net6.0\FundooNotes.pdb
 E:\C#\ThreeTierArchitecture\PresentationLayer\obj\Debug\net6.0\FundooNotes.genruntimeconfig.cache
 E:\C#\ThreeTierArchitecture\PresentationLayer\obj\Debug\net6.0\ref\FundooNotes.dll
+E:\C#\ThreeTierArchitecture\PresentationLayer\bin\Debug\net6.0\ModelLayer.dll
+E:\C#\ThreeTierArchitecture\PresentationLayer\bin\Debug\net6.0\ModelLayer.pdb

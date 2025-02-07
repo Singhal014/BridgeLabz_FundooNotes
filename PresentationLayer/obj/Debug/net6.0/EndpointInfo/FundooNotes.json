@@ -4,7 +4,7 @@
     "title": "FundooNotes"
   },
   "paths": {
-    "/Note/create": {
+    "/api/note": {
       "post": {
         "tags": [
           "Note"
@@ -13,17 +13,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NoteDto"
+                "$ref": "#/components/schemas/NoteModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/NoteDto"
+                "$ref": "#/components/schemas/NoteModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/NoteDto"
+                "$ref": "#/components/schemas/NoteModel"
               }
             }
           }
@@ -35,7 +35,7 @@
         }
       }
     },
-    "/Note": {
+    "/api/note/getnotes": {
       "get": {
         "tags": [
           "Note"
@@ -47,7 +47,7 @@
         }
       }
     },
-    "/Note/{id}": {
+    "/api/note/{id}": {
       "get": {
         "tags": [
           "Note"
@@ -70,7 +70,7 @@
         }
       }
     },
-    "/Note/update/{id}": {
+    "/api/note/update/{id}": {
       "put": {
         "tags": [
           "Note"
@@ -90,17 +90,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NoteDto"
+                "$ref": "#/components/schemas/NoteModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/NoteDto"
+                "$ref": "#/components/schemas/NoteModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/NoteDto"
+                "$ref": "#/components/schemas/NoteModel"
               }
             }
           }
@@ -112,7 +112,7 @@
         }
       }
     },
-    "/Note/delete/{id}": {
+    "/api/note/delete/{id}": {
       "delete": {
         "tags": [
           "Note"
@@ -135,7 +135,7 @@
         }
       }
     },
-    "/api/users": {
+    "/api/users/register": {
       "post": {
         "tags": [
           "User"
@@ -202,15 +202,6 @@
         "tags": [
           "User"
         ],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -272,15 +263,6 @@
       "post": {
         "tags": [
           "User"
-        ],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "requestBody": {
           "content": {
@@ -348,7 +330,7 @@
         },
         "additionalProperties": false
       },
-      "NoteDto": {
+      "NoteModel": {
         "type": "object",
         "properties": {
           "title": {

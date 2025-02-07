@@ -1,15 +1,78 @@
 [
   {
-    "ContainingType": "UserController",
-    "Method": "Register",
-    "RelativePath": "api/users",
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "Create",
+    "RelativePath": "api/note",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "user",
-        "Type": "User",
+        "Name": "noteDto",
+        "Type": "DataAccessLayer.Models.NoteModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "GetNote",
+    "RelativePath": "api/note/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "Delete",
+    "RelativePath": "api/note/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "GetAllNotes",
+    "RelativePath": "api/note/getnotes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "Update",
+    "RelativePath": "api/note/update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "noteDto",
+        "Type": "DataAccessLayer.Models.NoteModel",
         "IsRequired": true
       }
     ],
@@ -49,6 +112,22 @@
   },
   {
     "ContainingType": "UserController",
+    "Method": "Register",
+    "RelativePath": "api/users/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "User",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserController",
     "Method": "ResetPassword",
     "RelativePath": "api/users/reset-password",
     "HttpMethod": "POST",
@@ -59,11 +138,6 @@
         "Name": "model",
         "Type": "DataAccessLayer.Models.ResetPasswordModel",
         "IsRequired": true
-      },
-      {
-        "Name": "token",
-        "Type": "System.String",
-        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -77,92 +151,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "token",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
         "Name": "model",
         "Type": "NewPasswordModel",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PresentationLayer.Controllers.NoteController",
-    "Method": "GetAllNotes",
-    "RelativePath": "Note",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PresentationLayer.Controllers.NoteController",
-    "Method": "GetNote",
-    "RelativePath": "Note/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PresentationLayer.Controllers.NoteController",
-    "Method": "Create",
-    "RelativePath": "Note/create",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "noteDto",
-        "Type": "DataAccessLayer.Entity.NoteDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PresentationLayer.Controllers.NoteController",
-    "Method": "Delete",
-    "RelativePath": "Note/delete/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PresentationLayer.Controllers.NoteController",
-    "Method": "Update",
-    "RelativePath": "Note/update/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "noteDto",
-        "Type": "DataAccessLayer.Entity.NoteDto",
         "IsRequired": true
       }
     ],

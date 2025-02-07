@@ -1,0 +1,12 @@
+E:\C#\ThreeTierArchitecture\ModelLayer\bin\Debug\net6.0\ModelLayer.deps.json
+E:\C#\ThreeTierArchitecture\ModelLayer\bin\Debug\net6.0\ModelLayer.dll
+E:\C#\ThreeTierArchitecture\ModelLayer\bin\Debug\net6.0\ModelLayer.pdb
+E:\C#\ThreeTierArchitecture\ModelLayer\obj\Debug\net6.0\ModelLayer.GeneratedMSBuildEditorConfig.editorconfig
+E:\C#\ThreeTierArchitecture\ModelLayer\obj\Debug\net6.0\ModelLayer.AssemblyInfoInputs.cache
+E:\C#\ThreeTierArchitecture\ModelLayer\obj\Debug\net6.0\ModelLayer.AssemblyInfo.cs
+E:\C#\ThreeTierArchitecture\ModelLayer\obj\Debug\net6.0\ModelLayer.csproj.CoreCompileInputs.cache
+E:\C#\ThreeTierArchitecture\ModelLayer\obj\Debug\net6.0\ModelLayer.sourcelink.json
+E:\C#\ThreeTierArchitecture\ModelLayer\obj\Debug\net6.0\ModelLayer.dll
+E:\C#\ThreeTierArchitecture\ModelLayer\obj\Debug\net6.0\refint\ModelLayer.dll
+E:\C#\ThreeTierArchitecture\ModelLayer\obj\Debug\net6.0\ModelLayer.pdb
+E:\C#\ThreeTierArchitecture\ModelLayer\obj\Debug\net6.0\ref\ModelLayer.dll

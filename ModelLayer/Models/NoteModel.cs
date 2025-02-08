@@ -1,4 +1,4 @@
-﻿namespace DataAccessLayer.Models
+﻿namespace ModelLayer.Models
 {
     public class NoteModel
     {

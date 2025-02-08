@@ -1,7 +1,9 @@
+using BusinessLayer.Interfaces;
 using BusinessLogicLayer.Interfaces;
 using BusinessLogicLayer.Services;
 using DataAccessLayer.Context;
-using DataAccessLayer.Interfaces;
+using RepoLayer.Interfaces;
+using RepoLayer.Services;
 using DataAccessLayer.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -11,22 +13,28 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Ensure IConfiguration is registered
+// Register IConfiguration
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 // Configure DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Configure JSON Serialization
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+});
+
 // Register repositories
 builder.Services.AddScoped<IUserRL, UserRL>();
-builder.Services.AddScoped<INoteDl, NoteRL>();
+builder.Services.AddScoped<INoteRL, NoteRL>();
 
 // Register services
-builder.Services.AddScoped<IUserBl, UserBl>();
-builder.Services.AddScoped<INoteService, NoteBl>();
+builder.Services.AddScoped<IUserBL, UserBl>();
+builder.Services.AddScoped<INoteBL, NoteBL>();
 
-// ?? Add JWT Authentication with Default Authentication Scheme
+// Configure JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -46,19 +54,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // Add Authorization
 builder.Services.AddAuthorization();
 
-// Add controllers
-builder.Services.AddControllers();
-
 // Enable Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "FundooNotes",
-    });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "FundooNotes", Version = "v1" });
 
-    // ?? Enable JWT authentication in Swagger
+    // Enable JWT Authentication in Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -87,18 +89,14 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Configure the HTTP request 
+// Configure Middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "FundooNotes API v1");
-    });
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FundooNotes API v1"));
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
 app.UseAuthorization();
 

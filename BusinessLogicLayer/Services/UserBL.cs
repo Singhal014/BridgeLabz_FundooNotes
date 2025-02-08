@@ -1,6 +1,5 @@
 ﻿using BusinessLogicLayer.Interfaces;
-using DataAccessLayer.Interfaces;
-using DataAccessLayer.Models;
+using RepoLayer.Interfaces;
 using DataAccessLayer.Utilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -12,10 +11,11 @@ using System.Net;
 using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
+using RepoLayer.Entity;
 
 namespace BusinessLogicLayer.Services
 {
-    public class UserBl : IUserBl
+    public class UserBl : IUserBL
     {
         private readonly IUserRL _userRepository;
         private readonly IConfiguration _configuration;
@@ -154,7 +154,7 @@ namespace BusinessLogicLayer.Services
             smtpClient.Send(mailMessage);
         }
 
-        // Now, GenerateJwtToken is public and part of IUserService
+        
         public string GenerateJwtToken(User user, int expiresInMinutes = 15)
         {
             var jwtSettings = _configuration.GetSection("JwtSettings");

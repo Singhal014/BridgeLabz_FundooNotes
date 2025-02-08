@@ -1,8 +1,9 @@
-﻿using DataAccessLayer.Models;
+﻿using ModelLayer.Models;
+using RepoLayer.Entity;
 
 namespace BusinessLogicLayer.Interfaces
 {
-    public interface IUserBl
+    public interface IUserBL
     {
         string RegisterUser(User user);
         User LoginUser(string email, string password);

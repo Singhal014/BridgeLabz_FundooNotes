@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0dE6ds6P5Lg=",
+  "dgSpecHash": "1ZXjGcSNVGQ=",
   "success": true,
-  "projectFilePath": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\DataAccessLayer.csproj",
+  "projectFilePath": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\RepoLayer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.1.1\\microsoft.aspnetcore.authentication.abstractions.2.1.1.nupkg.sha512",
@@ -118,7 +118,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "DataAccessLayer depends on Microsoft.Bcl.Memory (>= 8.0.0) but Microsoft.Bcl.Memory 8.0.0 was not found. Microsoft.Bcl.Memory 9.0.0 was resolved instead.",
+      "message": "RepoLayer depends on Microsoft.Bcl.Memory (>= 8.0.0) but Microsoft.Bcl.Memory 8.0.0 was not found. Microsoft.Bcl.Memory 9.0.0 was resolved instead.",
       "libraryId": "Microsoft.Bcl.Memory",
       "targetGraphs": [
         "net6.0"

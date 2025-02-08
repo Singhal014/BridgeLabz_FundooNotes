@@ -32,8 +32,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\DataAccessLayer.csproj": {
-                "projectPath": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\DataAccessLayer.csproj"
+              "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\RepoLayer.csproj": {
+                "projectPath": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\RepoLayer.csproj"
               }
             }
           }
@@ -89,12 +89,12 @@
         }
       }
     },
-    "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\DataAccessLayer.csproj": {
+    "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\RepoLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\DataAccessLayer.csproj",
-        "projectName": "DataAccessLayer",
-        "projectPath": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\DataAccessLayer.csproj",
+        "projectUniqueName": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\RepoLayer.csproj",
+        "projectName": "RepoLayer",
+        "projectPath": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\RepoLayer.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
         "outputPath": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\obj\\",
         "projectStyle": "PackageReference",
@@ -117,9 +117,6 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "E:\\C#\\ThreeTierArchitecture\\ModelLayerr\\ModelLayerr.csproj": {
-                "projectPath": "E:\\C#\\ThreeTierArchitecture\\ModelLayerr\\ModelLayerr.csproj"
-              },
               "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\ModelLayer.csproj": {
                 "projectPath": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\ModelLayer.csproj"
               }
@@ -179,71 +176,6 @@
               "version": "[8.3.1, )"
             }
           },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "E:\\C#\\ThreeTierArchitecture\\ModelLayerr\\ModelLayerr.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "E:\\C#\\ThreeTierArchitecture\\ModelLayerr\\ModelLayerr.csproj",
-        "projectName": "ModelLayerr",
-        "projectPath": "E:\\C#\\ThreeTierArchitecture\\ModelLayerr\\ModelLayerr.csproj",
-        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "E:\\C#\\ThreeTierArchitecture\\ModelLayerr\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net6.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
-      },
-      "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
           "imports": [
             "net461",
             "net462",

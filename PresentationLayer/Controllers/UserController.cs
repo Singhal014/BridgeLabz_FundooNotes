@@ -1,21 +1,22 @@
 ﻿using BusinessLogicLayer.Interfaces;
-using DataAccessLayer.Models;
+using ModelLayer.Models;
+using RepoLayer.Entity;
 using Microsoft.AspNetCore.Authorization; // Add this for [Authorize]
 using Microsoft.AspNetCore.Mvc;
 
-[Route("api/users")]
+[Route("users")]
 [ApiController]
 public class UserController : ControllerBase
 {
-    private readonly IUserBl _userService;
+    private readonly IUserBL _userService;
 
-    public UserController(IUserBl userService)
+    public UserController(IUserBL userService)
     {
         _userService = userService;
     }
 
     // Register user
-    [HttpPost("register")]
+    [HttpPost]
     public IActionResult Register([FromBody] User user)
     {
         try

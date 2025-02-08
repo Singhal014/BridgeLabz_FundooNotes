@@ -1907,16 +1907,6 @@
         "runtime": {
           "bin/placeholder/ModelLayer.dll": {}
         }
-      },
-      "ModelLayerr/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "compile": {
-          "bin/placeholder/ModelLayerr.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ModelLayerr.dll": {}
-        }
       }
     }
   },
@@ -5735,11 +5725,6 @@
       "type": "project",
       "path": "../ModelLayer/ModelLayer.csproj",
       "msbuildProject": "../ModelLayer/ModelLayer.csproj"
-    },
-    "ModelLayerr/1.0.0": {
-      "type": "project",
-      "path": "../ModelLayerr/ModelLayerr.csproj",
-      "msbuildProject": "../ModelLayerr/ModelLayerr.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5752,7 +5737,6 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.33",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.1",
       "ModelLayer >= 1.0.0",
-      "ModelLayerr >= 1.0.0",
       "System.IdentityModel.Tokens.Jwt >= 8.3.1"
     ]
   },
@@ -5763,9 +5747,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\DataAccessLayer.csproj",
-      "projectName": "DataAccessLayer",
-      "projectPath": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\DataAccessLayer.csproj",
+      "projectUniqueName": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\RepoLayer.csproj",
+      "projectName": "RepoLayer",
+      "projectPath": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\RepoLayer.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
       "outputPath": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\obj\\",
       "projectStyle": "PackageReference",
@@ -5788,9 +5772,6 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "E:\\C#\\ThreeTierArchitecture\\ModelLayerr\\ModelLayerr.csproj": {
-              "projectPath": "E:\\C#\\ThreeTierArchitecture\\ModelLayerr\\ModelLayerr.csproj"
-            },
             "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\ModelLayer.csproj": {
               "projectPath": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\ModelLayer.csproj"
             }
@@ -5875,7 +5856,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "DataAccessLayer depends on Microsoft.Bcl.Memory (>= 8.0.0) but Microsoft.Bcl.Memory 8.0.0 was not found. Microsoft.Bcl.Memory 9.0.0 was resolved instead.",
+      "message": "RepoLayer depends on Microsoft.Bcl.Memory (>= 8.0.0) but Microsoft.Bcl.Memory 8.0.0 was not found. Microsoft.Bcl.Memory 9.0.0 was resolved instead.",
       "libraryId": "Microsoft.Bcl.Memory",
       "targetGraphs": [
         "net6.0"

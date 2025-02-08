@@ -2,7 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
-
+namespace RepoLayer.Entity
+{
     public class Note
     {
 
@@ -26,5 +27,8 @@ using System.Text.Json.Serialization;
         public virtual User User { get; set; } // Navigation property to access the User object
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public ICollection<Label> Labels { get; set; } = new List<Label>();
+
     }
+}
 

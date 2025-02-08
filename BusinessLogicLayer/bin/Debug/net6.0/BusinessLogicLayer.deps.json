@@ -8,10 +8,10 @@
     ".NETCoreApp,Version=v6.0": {
       "BusinessLogicLayer/1.0.0": {
         "dependencies": {
-          "DataAccessLayer": "1.0.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.1.38",
           "Microsoft.Bcl.Memory": "9.0.0",
-          "Microsoft.EntityFrameworkCore.Design": "6.0.33"
+          "Microsoft.EntityFrameworkCore.Design": "6.0.33",
+          "RepoLayer": "1.0.0"
         },
         "runtime": {
           "BusinessLogicLayer.dll": {}
@@ -1024,7 +1024,15 @@
           "System.Xml.ReaderWriter": "4.0.11"
         }
       },
-      "DataAccessLayer/1.0.0": {
+      "ModelLayer/1.0.0": {
+        "runtime": {
+          "ModelLayer.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "RepoLayer/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.1",
           "Microsoft.AspNetCore.Mvc.Core": "2.1.38",
@@ -1032,19 +1040,10 @@
           "Microsoft.EntityFrameworkCore": "6.0.33",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.33",
           "ModelLayer": "1.0.0",
-          "ModelLayerr": "1.0.0",
           "System.IdentityModel.Tokens.Jwt": "8.3.1"
         },
         "runtime": {
-          "DataAccessLayer.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "ModelLayer/1.0.0": {
-        "runtime": {
-          "ModelLayer.dll": {
+          "RepoLayer.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1807,12 +1806,12 @@
       "path": "system.xml.xdocument/4.0.11",
       "hashPath": "system.xml.xdocument.4.0.11.nupkg.sha512"
     },
-    "DataAccessLayer/1.0.0": {
+    "ModelLayer/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "ModelLayer/1.0.0": {
+    "RepoLayer/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

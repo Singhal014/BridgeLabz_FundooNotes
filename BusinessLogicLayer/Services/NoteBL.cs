@@ -1,17 +1,15 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Collections.Generic;
+﻿using BusinessLayer.Interfaces;
 using BusinessLogicLayer.Interfaces;
-using DataAccessLayer.Interfaces;
-using DataAccessLayer.Models;
+using RepoLayer.Interfaces;
+using System.Collections.Generic;
+using RepoLayer.Entity; 
 
-public class NoteBl : INoteService
+public class NoteBL : INoteBL
 {
-    private readonly INoteDl _noteRepository;
-    private readonly IUserBl _userService;
+    private readonly INoteRL _noteRepository;
+    private readonly IUserBL _userService;
 
-    public NoteBl(INoteDl noteRepository, IUserBl userService)
+    public NoteBL(INoteRL noteRepository, IUserBL userService)
     {
         _noteRepository = noteRepository;
         _userService = userService;
@@ -46,5 +44,30 @@ public class NoteBl : INoteService
     public int GetUserIdFromToken(string token)
     {
         return _userService.GetUserIdFromToken(token);
+    }
+
+    // Label Methods
+    public void AddLabel(Label label)
+    {
+        _noteRepository.AddLabel(label);
+    }
+
+    public void AddLabelToNote(int noteId, int labelId)
+    {
+        _noteRepository.AddLabelToNote(noteId, labelId);
+    }
+
+    public void RemoveLabelFromNote(int noteId, int labelId)
+    {
+        _noteRepository.RemoveLabelFromNote(noteId, labelId);
+    }
+
+    public IEnumerable<Label> GetLabelsByNoteId(int noteId)
+    {
+        return _noteRepository.GetLabelsByNoteId(noteId);
+    }
+    public IEnumerable<Label> GetAllLabels()
+    {
+        return _noteRepository.GetAllLabels();
     }
 }

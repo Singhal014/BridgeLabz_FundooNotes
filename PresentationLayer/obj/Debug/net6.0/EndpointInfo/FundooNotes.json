@@ -1,10 +1,11 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "FundooNotes"
+    "title": "FundooNotes",
+    "version": "v1"
   },
   "paths": {
-    "/api/note": {
+    "/notes": {
       "post": {
         "tags": [
           "Note"
@@ -35,7 +36,7 @@
         }
       }
     },
-    "/api/note/getnotes": {
+    "/notes/getnotes": {
       "get": {
         "tags": [
           "Note"
@@ -47,7 +48,7 @@
         }
       }
     },
-    "/api/note/{id}": {
+    "/notes/{id}": {
       "get": {
         "tags": [
           "Note"
@@ -70,7 +71,7 @@
         }
       }
     },
-    "/api/note/update/{id}": {
+    "/notes/update/{id}": {
       "put": {
         "tags": [
           "Note"
@@ -112,7 +113,7 @@
         }
       }
     },
-    "/api/note/delete/{id}": {
+    "/notes/delete/{id}": {
       "delete": {
         "tags": [
           "Note"
@@ -135,7 +136,112 @@
         }
       }
     },
-    "/api/users/register": {
+    "/notes/label": {
+      "post": {
+        "tags": [
+          "Note"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LabelModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LabelModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LabelModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/notes/labels": {
+      "get": {
+        "tags": [
+          "Note"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/notes/{noteId}/label/{labelId}": {
+      "post": {
+        "tags": [
+          "Note"
+        ],
+        "parameters": [
+          {
+            "name": "noteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "labelId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Note"
+        ],
+        "parameters": [
+          {
+            "name": "noteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "labelId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/users": {
       "post": {
         "tags": [
           "User"
@@ -166,7 +272,7 @@
         }
       }
     },
-    "/api/users/login": {
+    "/users/login": {
       "post": {
         "tags": [
           "User"
@@ -197,7 +303,7 @@
         }
       }
     },
-    "/api/users/reset-password": {
+    "/users/reset-password": {
       "post": {
         "tags": [
           "User"
@@ -228,7 +334,7 @@
         }
       }
     },
-    "/api/users/forgot-password": {
+    "/users/forgot-password": {
       "post": {
         "tags": [
           "User"
@@ -259,7 +365,7 @@
         }
       }
     },
-    "/api/users/reset-password-confirm": {
+    "/users/reset-password-confirm": {
       "post": {
         "tags": [
           "User"
@@ -297,6 +403,20 @@
         "type": "object",
         "properties": {
           "email": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LabelModel": {
+        "type": "object",
+        "properties": {
+          "noteId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "labelName": {
             "type": "string",
             "nullable": true
           }

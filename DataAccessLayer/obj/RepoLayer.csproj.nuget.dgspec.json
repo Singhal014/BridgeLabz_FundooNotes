@@ -32,9 +32,6 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "E:\\C#\\ThreeTierArchitecture\\ModelLayerr\\ModelLayerr.csproj": {
-                "projectPath": "E:\\C#\\ThreeTierArchitecture\\ModelLayerr\\ModelLayerr.csproj"
-              },
               "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\ModelLayer.csproj": {
                 "projectPath": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\ModelLayer.csproj"
               }

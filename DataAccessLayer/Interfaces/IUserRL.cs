@@ -1,6 +1,6 @@
-﻿using DataAccessLayer.Models;
+﻿using RepoLayer.Entity;
 
-namespace DataAccessLayer.Interfaces
+namespace RepoLayer.Interfaces
 {
     public interface IUserRL
     {

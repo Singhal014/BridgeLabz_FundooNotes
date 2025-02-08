@@ -1,8 +1,6 @@
 E:\C#\ThreeTierArchitecture\BusinessLogicLayer\bin\Debug\net6.0\BusinessLogicLayer.deps.json
 E:\C#\ThreeTierArchitecture\BusinessLogicLayer\bin\Debug\net6.0\BusinessLogicLayer.dll
 E:\C#\ThreeTierArchitecture\BusinessLogicLayer\bin\Debug\net6.0\BusinessLogicLayer.pdb
-E:\C#\ThreeTierArchitecture\BusinessLogicLayer\bin\Debug\net6.0\DataAccessLayer.dll
-E:\C#\ThreeTierArchitecture\BusinessLogicLayer\bin\Debug\net6.0\DataAccessLayer.pdb
 E:\C#\ThreeTierArchitecture\BusinessLogicLayer\obj\Debug\net6.0\BusinessLogicLayer.csproj.AssemblyReference.cache
 E:\C#\ThreeTierArchitecture\BusinessLogicLayer\obj\Debug\net6.0\BusinessLogicLayer.GeneratedMSBuildEditorConfig.editorconfig
 E:\C#\ThreeTierArchitecture\BusinessLogicLayer\obj\Debug\net6.0\BusinessLogicLayer.AssemblyInfoInputs.cache
@@ -18,3 +16,5 @@ E:\C#\ThreeTierArchitecture\BusinessLogicLayer\obj\Debug\net6.0\BusinessLogicLay
 E:\C#\ThreeTierArchitecture\BusinessLogicLayer\obj\Debug\net6.0\BusinessLogicLayer.sourcelink.json
 E:\C#\ThreeTierArchitecture\BusinessLogicLayer\bin\Debug\net6.0\ModelLayer.dll
 E:\C#\ThreeTierArchitecture\BusinessLogicLayer\bin\Debug\net6.0\ModelLayer.pdb
+E:\C#\ThreeTierArchitecture\BusinessLogicLayer\bin\Debug\net6.0\RepoLayer.dll
+E:\C#\ThreeTierArchitecture\BusinessLogicLayer\bin\Debug\net6.0\RepoLayer.pdb

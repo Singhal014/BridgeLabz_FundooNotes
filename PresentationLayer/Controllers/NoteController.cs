@@ -1,22 +1,28 @@
-﻿using BusinessLogicLayer.Interfaces;
-using DataAccessLayer.Models;
+﻿using BusinessLayer.Interfaces;
+using BusinessLogicLayer.Interfaces;
+using ModelLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using RepoLayer.Entity;
 
 namespace PresentationLayer.Controllers
 {
-    [Route("api/note")]
+    [Route("notes")]
     [ApiController]
     public class NoteController : ControllerBase
     {
-        private readonly INoteService _noteService;
+        private readonly INoteBL _noteService;
+        private readonly IUserBL _userService;
 
-        public NoteController(INoteService noteService)
+        public NoteController(INoteBL noteService, IUserBL userService)
         {
             _noteService = noteService;
+            _userService = userService;
         }
+
+        
 
         [HttpPost]
         [Authorize]
@@ -55,7 +61,18 @@ namespace PresentationLayer.Controllers
             try
             {
                 int userId = GetUserIdFromToken();
-                var notes = _noteService.GetAllNotes()?.Where(n => n.CreatedBy == userId) ?? new List<Note>();
+                var notes = _noteService.GetAllNotes()?
+                    .Where(n => n.CreatedBy == userId)
+                    .Select(n => new NoteResponse
+                    {
+                        Id = n.Id,
+                        Title = n.Title,
+                        Description = n.Description,
+                        Color = n.Color,
+                        IsArchived = n.IsArchived,
+                        Labels = n.Labels.Select(l => l.Name).ToList()
+                    })
+                    .ToList() ?? new List<NoteResponse>();
 
                 return Ok(new { Message = "Notes retrieved successfully.", Success = true, Data = notes });
             }
@@ -64,6 +81,7 @@ namespace PresentationLayer.Controllers
                 return Unauthorized(new { Message = ex.Message, Success = false });
             }
         }
+
 
         [HttpGet("{id}")]
         [Authorize]
@@ -79,7 +97,17 @@ namespace PresentationLayer.Controllers
                     return NotFound(new { Message = "Note not found or access denied.", Success = false });
                 }
 
-                return Ok(new { Message = "Note retrieved successfully.", Success = true, Data = note });
+                var noteResponse = new NoteResponse
+                {
+                    Id = note.Id,
+                    Title = note.Title,
+                    Description = note.Description,
+                    Color = note.Color,
+                    IsArchived = note.IsArchived,
+                    Labels = note.Labels.Select(l => l.Name).ToList()
+                };
+
+                return Ok(new { Message = "Note retrieved successfully.", Success = true, Data = noteResponse });
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -141,16 +169,113 @@ namespace PresentationLayer.Controllers
             }
         }
 
+        // Label API
+
+        [HttpPost("label")]
+        [Authorize]
+        public IActionResult AddLabel([FromBody] LabelModel labelDto)
+        {
+            if (labelDto == null || string.IsNullOrEmpty(labelDto.LabelName))
+            {
+                return BadRequest(new { Message = "Label name is required.", Success = false });
+            }
+
+            try
+            {
+                int userId = GetUserIdFromToken();
+                var label = new Label
+                {
+                    Name = labelDto.LabelName,
+                    CreatedBy = userId
+                };
+
+                _noteService.AddLabel(label);
+                return Ok(new { Message = "Label added successfully.", Success = true, Data = labelDto });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { Message = ex.Message, Success = false });
+            }
+        }
+        [HttpGet("labels")]
+        [Authorize]
+        public IActionResult GetAllLabels()
+        {
+            try
+            {
+                var labels = _noteService.GetAllLabels()
+                    .Select(l => new
+                    {
+                        LabelId = l.Id,
+                        Name = l.Name
+                    })
+                    .ToList();
+
+                return Ok(new { Message = "Labels retrieved successfully.", Success = true, Data = labels });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred while retrieving labels.", Success = false, Error = ex.Message });
+            }
+        }
+
+        [HttpPost("{noteId}/label/{labelId}")]
+        [Authorize]
+        public IActionResult AddLabelToNote([FromRoute] int noteId, [FromRoute] int labelId)
+        {
+            try
+            {
+                int userId = GetUserIdFromToken();
+                var note = _noteService.GetNoteById(noteId);
+
+                if (note == null || note.CreatedBy != userId)
+                {
+                    return NotFound(new { Message = "Note not found or access denied.", Success = false });
+                }
+
+                _noteService.AddLabelToNote(noteId, labelId);
+                return Ok(new { Message = "Label added to note successfully.", Success = true });
+            }
+            catch
+            {
+                return StatusCode(500, new { Message = "Failed to add label to note.", Success = false });
+            }
+        }
+
+        [HttpDelete("{noteId}/label/{labelId}")]
+        [Authorize]
+        public IActionResult RemoveLabelFromNote([FromRoute] int noteId, [FromRoute] int labelId)
+        {
+            try
+            {
+                int userId = GetUserIdFromToken();
+                var note = _noteService.GetNoteById(noteId);
+
+                if (note == null || note.CreatedBy != userId)
+                {
+                    return NotFound(new { Message = "Note not found or access denied.", Success = false });
+                }
+
+                _noteService.RemoveLabelFromNote(noteId, labelId);
+                return Ok(new { Message = "Label removed from note successfully.", Success = true });
+            }
+            catch
+            {
+                return StatusCode(500, new { Message = "Failed to remove label from note.", Success = false });
+            }
+        }
+
+      
+
+        
+
         private int GetUserIdFromToken()
         {
             var authHeader = Request.Headers["Authorization"].ToString();
-            if (string.IsNullOrEmpty(authHeader) || !authHeader.StartsWith("Bearer "))
-            {
-                throw new UnauthorizedAccessException("Invalid or missing token.");
-            }
+            if (string.IsNullOrEmpty(authHeader)) return 0;
 
             var token = authHeader.Replace("Bearer ", "");
-            return _noteService.GetUserIdFromToken(token);
+            return _userService.GetUserIdFromToken(token);
         }
     }
 }

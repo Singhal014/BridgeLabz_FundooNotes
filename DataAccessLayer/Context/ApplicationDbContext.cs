@@ -1,5 +1,5 @@
-﻿using DataAccessLayer.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using RepoLayer.Entity;
 
 namespace DataAccessLayer.Context
 {
@@ -9,15 +9,23 @@ namespace DataAccessLayer.Context
 
         public DbSet<Note> Notes { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Label> Labels { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Define the foreign key relationship explicitly
+            // Note-User Relationship
             modelBuilder.Entity<Note>()
-                .HasOne(n => n.User) // Navigation property to User
-                .WithMany(u => u.Notes) // One User can have many Notes
-                .HasForeignKey(n => n.CreatedBy) // Foreign key property
-                .OnDelete(DeleteBehavior.Cascade); // When User is deleted, related Notes are also deleted
+                .HasOne(n => n.User)
+                .WithMany(u => u.Notes)
+                .HasForeignKey(n => n.CreatedBy)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Many-to-Many Relationship between Notes and Labels
+            modelBuilder.Entity<Note>()
+                .HasMany(n => n.Labels)
+                .WithMany(l => l.Notes)
+                .UsingEntity(j => j.ToTable("NoteLabels"));
         }
     }
 }

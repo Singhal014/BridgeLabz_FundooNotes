@@ -2,14 +2,14 @@
   {
     "ContainingType": "PresentationLayer.Controllers.NoteController",
     "Method": "Create",
-    "RelativePath": "api/note",
+    "RelativePath": "notes",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "noteDto",
-        "Type": "DataAccessLayer.Models.NoteModel",
+        "Type": "ModelLayer.Models.NoteModel",
         "IsRequired": true
       }
     ],
@@ -18,7 +18,7 @@
   {
     "ContainingType": "PresentationLayer.Controllers.NoteController",
     "Method": "GetNote",
-    "RelativePath": "api/note/{id}",
+    "RelativePath": "notes/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -33,8 +33,50 @@
   },
   {
     "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "AddLabelToNote",
+    "RelativePath": "notes/{noteId}/label/{labelId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "noteId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "labelId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "RemoveLabelFromNote",
+    "RelativePath": "notes/{noteId}/label/{labelId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "noteId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "labelId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
     "Method": "Delete",
-    "RelativePath": "api/note/delete/{id}",
+    "RelativePath": "notes/delete/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -50,7 +92,33 @@
   {
     "ContainingType": "PresentationLayer.Controllers.NoteController",
     "Method": "GetAllNotes",
-    "RelativePath": "api/note/getnotes",
+    "RelativePath": "notes/getnotes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "AddLabel",
+    "RelativePath": "notes/label",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "labelDto",
+        "Type": "ModelLayer.Models.LabelModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "GetAllLabels",
+    "RelativePath": "notes/labels",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -60,7 +128,7 @@
   {
     "ContainingType": "PresentationLayer.Controllers.NoteController",
     "Method": "Update",
-    "RelativePath": "api/note/update/{id}",
+    "RelativePath": "notes/update/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -72,39 +140,7 @@
       },
       {
         "Name": "noteDto",
-        "Type": "DataAccessLayer.Models.NoteModel",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "UserController",
-    "Method": "ForgotPassword",
-    "RelativePath": "api/users/forgot-password",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "model",
-        "Type": "DataAccessLayer.Models.ForgotPasswordModel",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "UserController",
-    "Method": "Login",
-    "RelativePath": "api/users/login",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "loginModel",
-        "Type": "DataAccessLayer.Models.LoginModel",
+        "Type": "ModelLayer.Models.NoteModel",
         "IsRequired": true
       }
     ],
@@ -113,14 +149,46 @@
   {
     "ContainingType": "UserController",
     "Method": "Register",
-    "RelativePath": "api/users/register",
+    "RelativePath": "users",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "user",
-        "Type": "User",
+        "Type": "RepoLayer.Entity.User",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserController",
+    "Method": "ForgotPassword",
+    "RelativePath": "users/forgot-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "ModelLayer.Models.ForgotPasswordModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserController",
+    "Method": "Login",
+    "RelativePath": "users/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginModel",
+        "Type": "ModelLayer.Models.LoginModel",
         "IsRequired": true
       }
     ],
@@ -129,14 +197,14 @@
   {
     "ContainingType": "UserController",
     "Method": "ResetPassword",
-    "RelativePath": "api/users/reset-password",
+    "RelativePath": "users/reset-password",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "model",
-        "Type": "DataAccessLayer.Models.ResetPasswordModel",
+        "Type": "ModelLayer.Models.ResetPasswordModel",
         "IsRequired": true
       }
     ],
@@ -145,14 +213,14 @@
   {
     "ContainingType": "UserController",
     "Method": "ResetPasswordConfirm",
-    "RelativePath": "api/users/reset-password-confirm",
+    "RelativePath": "users/reset-password-confirm",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "model",
-        "Type": "NewPasswordModel",
+        "Type": "ModelLayer.Models.NewPasswordModel",
         "IsRequired": true
       }
     ],

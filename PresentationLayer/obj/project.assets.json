@@ -1986,35 +1986,15 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "DataAccessLayer": "1.0.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.1.38",
-          "Microsoft.Bcl.Memory": "9.0.0"
+          "Microsoft.Bcl.Memory": "9.0.0",
+          "RepoLayer": "1.0.0"
         },
         "compile": {
           "bin/placeholder/BusinessLogicLayer.dll": {}
         },
         "runtime": {
           "bin/placeholder/BusinessLogicLayer.dll": {}
-        }
-      },
-      "DataAccessLayer/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.1",
-          "Microsoft.AspNetCore.Mvc.Core": "2.1.38",
-          "Microsoft.Bcl.Memory": "8.0.0",
-          "Microsoft.EntityFrameworkCore": "6.0.33",
-          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.33",
-          "ModelLayer": "1.0.0",
-          "ModelLayerr": "1.0.0",
-          "System.IdentityModel.Tokens.Jwt": "8.3.1"
-        },
-        "compile": {
-          "bin/placeholder/DataAccessLayer.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/DataAccessLayer.dll": {}
         }
       },
       "ModelLayer/1.0.0": {
@@ -2027,14 +2007,23 @@
           "bin/placeholder/ModelLayer.dll": {}
         }
       },
-      "ModelLayerr/1.0.0": {
+      "RepoLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.1",
+          "Microsoft.AspNetCore.Mvc.Core": "2.1.38",
+          "Microsoft.Bcl.Memory": "8.0.0",
+          "Microsoft.EntityFrameworkCore": "6.0.33",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.33",
+          "ModelLayer": "1.0.0",
+          "System.IdentityModel.Tokens.Jwt": "8.3.1"
+        },
         "compile": {
-          "bin/placeholder/ModelLayerr.dll": {}
+          "bin/placeholder/RepoLayer.dll": {}
         },
         "runtime": {
-          "bin/placeholder/ModelLayerr.dll": {}
+          "bin/placeholder/RepoLayer.dll": {}
         }
       }
     }
@@ -6168,20 +6157,15 @@
       "path": "../BusinessLogicLayer/BusinessLogicLayer.csproj",
       "msbuildProject": "../BusinessLogicLayer/BusinessLogicLayer.csproj"
     },
-    "DataAccessLayer/1.0.0": {
-      "type": "project",
-      "path": "../DataAccessLayer/DataAccessLayer.csproj",
-      "msbuildProject": "../DataAccessLayer/DataAccessLayer.csproj"
-    },
     "ModelLayer/1.0.0": {
       "type": "project",
       "path": "../ModelLayer/ModelLayer.csproj",
       "msbuildProject": "../ModelLayer/ModelLayer.csproj"
     },
-    "ModelLayerr/1.0.0": {
+    "RepoLayer/1.0.0": {
       "type": "project",
-      "path": "../ModelLayerr/ModelLayerr.csproj",
-      "msbuildProject": "../ModelLayerr/ModelLayerr.csproj"
+      "path": "../DataAccessLayer/RepoLayer.csproj",
+      "msbuildProject": "../DataAccessLayer/RepoLayer.csproj"
     }
   },
   "projectFileDependencyGroups": {

@@ -16,7 +16,6 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.33",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.1",
           "ModelLayer": "1.0.0",
-          "ModelLayerr": "1.0.0",
           "System.IdentityModel.Tokens.Jwt": "8.3.1"
         },
         "runtime": {

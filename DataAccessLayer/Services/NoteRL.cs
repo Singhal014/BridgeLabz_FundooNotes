@@ -35,30 +35,71 @@ namespace RepoLayer.Services
         {
             return _context.Notes
                 .Include(n => n.Labels)
-                .Include(n => n.Collaborators) 
-                .Where(n => n.CreatedBy == userId || n.Collaborators.Any(c => c.Id == userId))
+                .Include(n => n.Collaborators)
+                .Where(n => (n.CreatedBy == userId || n.Collaborators.Any(c => c.Id == userId))
+                            && !n.IsTrashed
+                            && !n.IsDeleted
+                            && !n.IsArchived) 
                 .ToList();
         }
 
 
 
 
-
-        public void UpdateNote(Note note)
+        public void UpdateNote(Note note, int userId)
         {
-            _context.Notes.Update(note);
-            _context.SaveChanges();
+            var existingNote = _context.Notes
+                .Include(n => n.Collaborators)
+                .FirstOrDefault(n => n.Id == note.Id);
+
+            if (existingNote != null &&
+                (existingNote.CreatedBy == userId || existingNote.Collaborators.Any(c => c.Id == userId)))
+            {
+                existingNote.Title = note.Title;
+                existingNote.Description = note.Description;
+                existingNote.IsArchived = note.IsArchived;
+                existingNote.IsTrashed = note.IsTrashed;
+                existingNote.IsDeleted = note.IsDeleted;
+                _context.SaveChanges();
+            }
         }
 
-        public void DeleteNote(int noteId)
+        public IEnumerable<Note> GetTrashedNotes(int userId)
         {
-            var note = _context.Notes.FirstOrDefault(n => n.Id == noteId);
-            if (note != null)
+            return _context.Notes
+                .Include(n => n.Labels)
+                .Include(n => n.Collaborators)
+                .Where(n => n.CreatedBy == userId && n.IsTrashed && !n.IsDeleted)
+                .ToList();
+        }
+
+
+        public void DeleteNote(int noteId, int userId)
+        {
+            var note = _context.Notes
+                .Include(n => n.Collaborators)
+                .FirstOrDefault(n => n.Id == noteId);
+
+            if (note != null &&
+                (note.CreatedBy == userId || note.Collaborators.Any(c => c.Id == userId)))
             {
                 _context.Notes.Remove(note);
                 _context.SaveChanges();
             }
         }
+
+        public IEnumerable<Note> GetArchivedNotes(int userId)
+        {
+            return _context.Notes
+                .Include(n => n.Labels)
+                .Include(n => n.Collaborators)
+                .Where(n => (n.CreatedBy == userId || n.Collaborators.Any(c => c.Id == userId))
+                            && n.IsArchived) 
+                .ToList();
+        }
+
+
+
 
         // Label Methods Implementation
         public void AddLabel(Label label)

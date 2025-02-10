@@ -7,6 +7,8 @@
         public string Description { get; set; }
         public string Color { get; set; }
         public bool IsArchived { get; set; }
+
+        public int CreatedBy { get; set; }
         public List<string> Labels { get; set; } = new List<string>();
     }
 }

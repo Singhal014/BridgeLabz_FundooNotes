@@ -142,14 +142,14 @@ namespace PresentationLayer.Controllers
                 int userId = GetUserIdFromToken();
                 var note = _noteService.GetNoteById(id);
 
-                if (note == null || note.CreatedBy != userId)
+                if (note == null || (note.CreatedBy != userId && !note.Collaborators.Any(c => c.Id == userId)))
                 {
                     return NotFound(new { Message = "Note not found or access denied.", Success = false });
                 }
 
                 note.Title = noteDto.Title;
                 note.Description = noteDto.Description;
-                _noteService.EditNote(note);
+                _noteService.EditNote(note, userId); // Pass userId
 
                 return Ok(new { Message = "Note updated successfully.", Success = true, Data = noteDto });
             }
@@ -159,8 +159,170 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        [HttpDelete("delete/{id}")]
-        public IActionResult Delete([FromRoute] int id)
+       
+
+
+
+        [HttpPost("{id}/archive")]
+        public IActionResult ArchiveNote([FromRoute] int id)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
+            try
+            {
+                int userId = GetUserIdFromToken();
+                _noteService.ArchiveNote(id, userId);
+                return Ok(new { Message = "Note archived successfully.", Success = true });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { Message = ex.Message, Success = false });
+            }
+        }
+
+        [HttpPost("{id}/unarchive")]
+        public IActionResult UnarchiveNote([FromRoute] int id)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
+            try
+            {
+                int userId = GetUserIdFromToken();
+                var note = _noteService.GetNoteById(id);
+
+                if (note == null || (note.CreatedBy != userId && !note.Collaborators.Any(c => c.Id == userId)))
+                {
+                    return NotFound(new { Message = "Note not found or access denied.", Success = false });
+                }
+
+                if (note.IsTrashed)
+                {
+                    return BadRequest(new { Message = "Cannot unarchive a trashed note. Please restore it first.", Success = false });
+                }
+
+                _noteService.UnarchiveNote(id, userId);
+                return Ok(new { Message = "Note unarchived successfully.", Success = true });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Message = ex.Message, Success = false });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred.", Success = false });
+            }
+        }
+
+
+
+
+        [HttpGet("archived")]
+        public IActionResult GetArchivedNotes()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
+            try
+            {
+                int userId = GetUserIdFromToken();
+                var archivedNotes = _noteService.GetArchivedNotes(userId);
+                return Ok(new { Message = "Archived notes retrieved successfully.", Data = archivedNotes, Success = true });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred.", Error = ex.Message, Success = false });
+            }
+        }
+
+
+
+        [HttpPost("{id}/trash")]
+        public IActionResult TrashNote([FromRoute] int id)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
+            try
+            {
+                int userId = GetUserIdFromToken();
+                var note = _noteService.GetNoteById(id);
+
+                if (note == null || (note.CreatedBy != userId && !note.Collaborators.Any(c => c.Id == userId)))
+                {
+                    return NotFound(new { Message = "Note not found or access denied.", Success = false });
+                }
+
+                if (note.IsArchived)
+                {
+                    return BadRequest(new { Message = "Cannot trash an archived note. Please unarchive it first.", Success = false });
+                }
+
+                if (note.IsTrashed)
+                {
+                    _noteService.DeleteNotePermanently(id, userId);
+                    return Ok(new { Message = "Note permanently deleted.", Success = true });
+                }
+
+                _noteService.TrashNote(id, userId);
+                return Ok(new { Message = "Note moved to trash.", Success = true });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { Message = ex.Message, Success = false });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Message = ex.Message, Success = false });
+            }
+        }
+
+        [HttpPost("{id}/restore")]
+        public IActionResult RestoreNote([FromRoute] int id)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
+            try
+            {
+                int userId = GetUserIdFromToken();
+                var note = _noteService.GetNoteById(id);
+
+                if (note == null || (note.CreatedBy != userId && !note.Collaborators.Any(c => c.Id == userId)))
+                {
+                    return NotFound(new { Message = "Note not found or access denied.", Success = false });
+                }
+
+                if (!note.IsTrashed)
+                {
+                    return BadRequest(new { Message = "Note is not in the trash.", Success = false });
+                }
+
+                _noteService.RestoreNote(id, userId);
+                return Ok(new { Message = "Note restored successfully.", Success = true });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred.", Success = false });
+            }
+        }
+
+
+
+
+        [HttpDelete("{id}/delete-permanently")]
+        public IActionResult DeleteNotePermanently([FromRoute] int id)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -177,14 +339,60 @@ namespace PresentationLayer.Controllers
                     return NotFound(new { Message = "Note not found or access denied.", Success = false });
                 }
 
-                _noteService.TrashNote(id);
-                return Ok(new { Message = "Note deleted successfully.", Success = true });
+                if (!note.IsTrashed)
+                {
+                    return BadRequest(new { Message = "Cannot delete a note that is not in the trash.", Success = false });
+                }
+
+                _noteService.DeleteNotePermanently(id, userId);
+                return Ok(new { Message = "Note deleted permanently.", Success = true });
             }
             catch (UnauthorizedAccessException ex)
             {
                 return Unauthorized(new { Message = ex.Message, Success = false });
             }
         }
+
+
+
+
+        [HttpGet("trashed")]
+        public IActionResult GetTrashedNotes()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
+            try
+            {
+                int userId = GetUserIdFromToken();
+                var notes = _noteService.GetTrashedNotes(userId)
+                    .Select(n => new NoteResponse
+                    {
+                        Id = n.Id,
+                        Title = n.Title,
+                        Description = n.Description,
+                        Color = n.Color,
+                        IsArchived = n.IsArchived,
+                        Labels = n.Labels?.Select(l => l.Name).ToList() ?? new List<string>()
+                    })
+                    .ToList();
+
+                return Ok(new { Message = "Trashed notes retrieved successfully.", Success = true, Data = notes });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { Message = ex.Message, Success = false });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred while retrieving trashed notes.", Success = false, Error = ex.Message });
+            }
+        }
+
+
+
 
         // Label API
 
@@ -322,7 +530,7 @@ namespace PresentationLayer.Controllers
             {
                 int userId = GetUserIdFromToken();
 
-                // Directly delete the label by its ID
+                // delete the label by its ID
                 bool isDeleted = _noteService.DeleteLabel(labelId, userId);
 
                 if (!isDeleted)

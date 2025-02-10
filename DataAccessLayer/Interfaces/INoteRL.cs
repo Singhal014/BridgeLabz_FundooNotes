@@ -1,4 +1,5 @@
 ﻿using RepoLayer.Entity;
+using System.Collections.Generic;
 
 namespace RepoLayer.Interfaces
 {
@@ -6,9 +7,11 @@ namespace RepoLayer.Interfaces
     {
         void AddNote(Note note);
         Note GetNoteById(int noteId);
-        IEnumerable<Note> GetAllNotes(int userId); // Updated to accept userId
-        void UpdateNote(Note note);
-        void DeleteNote(int noteId);
+        IEnumerable<Note> GetAllNotes(int userId);
+        void UpdateNote(Note note, int userId);
+        IEnumerable<Note> GetTrashedNotes(int userId);
+        IEnumerable<Note> GetArchivedNotes(int userId);
+        void DeleteNote(int noteId, int userId); 
 
         // Label Methods
         void AddLabel(Label label);
@@ -18,9 +21,9 @@ namespace RepoLayer.Interfaces
         IEnumerable<Label> GetLabelsByNoteId(int noteId);
         IEnumerable<Label> GetAllLabels();
 
+        // Collaborator Methods
         void AddCollaborator(int noteId, int userId);
         void RemoveCollaborator(int noteId, int userId);
         IEnumerable<User> GetCollaboratorsByNoteId(int noteId);
     }
-
 }

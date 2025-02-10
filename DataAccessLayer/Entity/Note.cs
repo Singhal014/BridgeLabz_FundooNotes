@@ -6,7 +6,6 @@ namespace RepoLayer.Entity
 {
     public class Note
     {
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -20,17 +19,20 @@ namespace RepoLayer.Entity
 
         public bool IsArchived { get; set; }
 
-        [ForeignKey("User")] // Define the foreign key to the User table
-        public int CreatedBy { get; set; } // This will link to User's Id
+        public bool IsTrashed { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        [ForeignKey("User")]
+        public int CreatedBy { get; set; }
 
         [JsonIgnore]
-        public virtual User User { get; set; } // Navigation property to access the User object
+        public virtual User User { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public ICollection<Label> Labels { get; set; } = new List<Label>();
 
         public ICollection<User> Collaborators { get; set; } = new List<User>();
-
     }
 }
 

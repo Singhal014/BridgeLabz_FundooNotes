@@ -1,5 +1,5 @@
-﻿
-using RepoLayer.Entity;
+﻿using RepoLayer.Entity;
+using System.Collections.Generic;
 
 namespace BusinessLayer.Interfaces
 {
@@ -8,9 +8,16 @@ namespace BusinessLayer.Interfaces
         void AddNote(Note note, int userId);
         Note GetNoteById(int noteId);
         IEnumerable<Note> GetAllNotes(int userId);
-        void EditNote(Note note);
-        void TrashNote(int noteId);
+        void EditNote(Note note, int userId);
+        void ArchiveNote(int noteId, int userId);
+        void UnarchiveNote(int noteId, int userId);
+        IEnumerable<Note> GetArchivedNotes(int userId);
+        void TrashNote(int noteId, int userId);
+        IEnumerable<Note> GetTrashedNotes(int userId);
+        void DeleteNotePermanently(int noteId, int userId);
+        public void RestoreNote(int noteId, int userId);
 
+        // Label Methods
         void AddLabel(Label label);
         void AddLabelToNote(int noteId, int labelId);
         bool DeleteLabel(int labelId, int userId);
@@ -18,6 +25,7 @@ namespace BusinessLayer.Interfaces
         IEnumerable<Label> GetLabelsByNoteId(int noteId);
         IEnumerable<Label> GetAllLabels();
 
+        // Collaborator Methods
         void InviteCollaborator(int noteId, string email);
         void RemoveCollaborator(int noteId, string email);
         IEnumerable<User> GetCollaboratorsByNoteId(int noteId);

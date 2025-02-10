@@ -13,6 +13,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Logging.ClearProviders();  // Clears default logging providers
+builder.Logging.AddConsole();      // Enables logging to the console
 // Register IConfiguration
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
@@ -25,6 +27,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
 });
+
+
 
 // Register repositories
 builder.Services.AddScoped<IUserRL, UserRL>();

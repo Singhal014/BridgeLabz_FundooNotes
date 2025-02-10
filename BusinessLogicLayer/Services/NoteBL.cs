@@ -2,7 +2,7 @@
 using BusinessLogicLayer.Interfaces;
 using RepoLayer.Interfaces;
 using System.Collections.Generic;
-using RepoLayer.Entity; 
+using RepoLayer.Entity;
 
 public class NoteBL : INoteBL
 {
@@ -32,15 +32,120 @@ public class NoteBL : INoteBL
     }
 
 
-    public void EditNote(Note note)
+    public void EditNote(Note note, int userId)
     {
-        _noteRepository.UpdateNote(note);
+        _noteRepository.UpdateNote(note, userId);
     }
 
-    public void TrashNote(int noteId)
+    
+
+
+
+
+    public void ArchiveNote(int noteId, int userId)
     {
-        _noteRepository.DeleteNote(noteId);
+        var note = _noteRepository.GetNoteById(noteId);
+        if (note != null && note.CreatedBy == userId)
+        {
+            if (note.IsTrashed)
+            {
+                throw new InvalidOperationException("Cannot archive a trashed note.");
+            }
+
+            note.IsArchived = true;
+            _noteRepository.UpdateNote(note, userId);
+        }
     }
+
+
+    public void UnarchiveNote(int noteId, int userId)
+    {
+        var note = _noteRepository.GetNoteById(noteId);
+        if (note != null && note.CreatedBy == userId)
+        {
+            if (note.IsTrashed)
+            {
+                throw new InvalidOperationException("Cannot unarchive a trashed note.");
+            }
+
+            note.IsArchived = false;
+            _noteRepository.UpdateNote(note, userId);
+        }
+    }
+
+
+    public IEnumerable<Note> GetArchivedNotes(int userId)
+    {
+        return _noteRepository.GetArchivedNotes(userId);
+    }
+
+
+
+    public void TrashNote(int noteId, int userId)
+    {
+        var note = _noteRepository.GetNoteById(noteId);
+        if (note != null && note.CreatedBy == userId)
+        {
+            if (note.IsArchived)
+            {
+                throw new InvalidOperationException("Cannot trash an archived note. Please unarchive it first.");
+            }
+
+            if (!note.IsTrashed)
+            {
+                note.IsTrashed = true;
+                _noteRepository.UpdateNote(note, userId);
+            }
+            else
+            {
+                _noteRepository.DeleteNote(noteId, userId); 
+            }
+        }
+    }
+
+
+
+    public IEnumerable<Note> GetTrashedNotes(int userId)
+    {
+        return _noteRepository.GetTrashedNotes(userId);
+    }
+
+    public void RestoreNote(int noteId, int userId)
+    {
+        var note = _noteRepository.GetNoteById(noteId);
+        if (note != null && note.CreatedBy == userId)
+        {
+            note.IsTrashed = false;
+            _noteRepository.UpdateNote(note, userId);
+        }
+    }
+
+    public void DeleteNotePermanently(int noteId, int userId)
+    {
+        try
+        {
+            var note = _noteRepository.GetNoteById(noteId);
+            if (note != null && note.CreatedBy == userId)
+            {
+                if (!note.IsTrashed)
+                {
+                    Console.WriteLine("Cannot delete a note that is not in the trash.");
+                    return; 
+                }
+
+                _noteRepository.DeleteNote(noteId, userId);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deleting note: {ex.Message}");
+        }
+    }
+
+
+
+
+
 
     public int GetUserIdFromToken(string token)
     {

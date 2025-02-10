@@ -34,7 +34,7 @@ namespace DataAccessLayer.Context
             "NoteCollaborators",
             j => j.HasOne<User>().WithMany().HasForeignKey("CollaboratorId").OnDelete(DeleteBehavior.NoAction),
             j => j.HasOne<Note>().WithMany().HasForeignKey("NoteId").OnDelete(DeleteBehavior.Cascade),
-            j => j.HasKey("NoteId", "CollaboratorId") // Composite primary key
+            j => j.HasKey("NoteId", "CollaboratorId") 
         );
         }
     }

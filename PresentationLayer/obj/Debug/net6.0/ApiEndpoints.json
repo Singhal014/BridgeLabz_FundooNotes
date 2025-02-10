@@ -33,6 +33,64 @@
   },
   {
     "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "GetCollaborators",
+    "RelativePath": "notes/{noteId}/collaborators",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "noteId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "InviteCollaborator",
+    "RelativePath": "notes/{noteId}/collaborators/invite",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "noteId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "ModelLayer.Models.CollaboratorModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "RemoveCollaborator",
+    "RelativePath": "notes/{noteId}/collaborators/remove",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "noteId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "ModelLayer.Models.CollaboratorModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
     "Method": "AddLabelToNote",
     "RelativePath": "notes/{noteId}/label/{labelId}",
     "HttpMethod": "POST",
@@ -110,6 +168,22 @@
       {
         "Name": "labelDto",
         "Type": "ModelLayer.Models.LabelModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "DeleteLabel",
+    "RelativePath": "notes/label/{labelId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "labelId",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

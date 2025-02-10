@@ -25,13 +25,24 @@ namespace RepoLayer.Services
 
         public Note GetNoteById(int noteId)
         {
-            return _context.Notes.Include(n => n.Labels).FirstOrDefault(n => n.Id == noteId);
+            return _context.Notes
+                .Include(n => n.Labels)
+                .Include(n => n.Collaborators) 
+                .FirstOrDefault(n => n.Id == noteId);
         }
 
-        public IEnumerable<Note> GetAllNotes()
+        public IEnumerable<Note> GetAllNotes(int userId)
         {
-            return _context.Notes.Include(n => n.Labels).ToList();
+            return _context.Notes
+                .Include(n => n.Labels)
+                .Include(n => n.Collaborators) 
+                .Where(n => n.CreatedBy == userId || n.Collaborators.Any(c => c.Id == userId))
+                .ToList();
         }
+
+
+
+
 
         public void UpdateNote(Note note)
         {
@@ -68,6 +79,22 @@ namespace RepoLayer.Services
             }
         }
 
+        public bool DeleteLabel(int labelId, int userId)
+        {
+            
+            var label = _context.Labels.FirstOrDefault(l => l.Id == labelId && l.CreatedBy == userId);
+
+            if (label == null)
+            {
+                return false; 
+            }
+
+            _context.Labels.Remove(label);
+            _context.SaveChanges();
+            return true;
+        }
+
+
         public void RemoveLabelFromNote(int noteId, int labelId)
         {
             var note = _context.Notes.Include(n => n.Labels).FirstOrDefault(n => n.Id == noteId);
@@ -90,6 +117,38 @@ namespace RepoLayer.Services
         public IEnumerable<Label> GetAllLabels()
         {
             return _context.Labels.ToList();
+        }
+
+        public void AddCollaborator(int noteId, int userId)
+        {
+            var note = _context.Notes.Include(n => n.Collaborators).FirstOrDefault(n => n.Id == noteId);
+            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (note != null && user != null)
+            {
+                note.Collaborators.Add(user);
+                _context.SaveChanges();
+            }
+        }
+
+        public void RemoveCollaborator(int noteId, int userId)
+        {
+            var note = _context.Notes.Include(n => n.Collaborators).FirstOrDefault(n => n.Id == noteId);
+            var user = note?.Collaborators.FirstOrDefault(u => u.Id == userId);
+
+            if (note != null && user != null)
+            {
+                note.Collaborators.Remove(user);
+                _context.SaveChanges();
+            }
+        }
+
+        public IEnumerable<User> GetCollaboratorsByNoteId(int noteId)
+        {
+            return _context.Notes
+                .Where(n => n.Id == noteId)
+                .SelectMany(n => n.Collaborators)
+                .ToList();
         }
     }
 }

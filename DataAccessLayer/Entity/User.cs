@@ -27,5 +27,8 @@ namespace RepoLayer.Entity
 
         [JsonIgnore]
         public ICollection<Note> Notes { get; set; } = new List<Note>();
+
+        [JsonIgnore]
+        public ICollection<Note> CollaboratedNotes { get; set; } = new List<Note>();
     }
 }

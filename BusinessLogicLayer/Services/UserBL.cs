@@ -99,6 +99,10 @@ namespace BusinessLogicLayer.Services
 
             return true;
         }
+        public User GetUserByEmail(string email)
+        {
+            return _userRepository.GetUserByEmail(email);
+        }
 
         public bool ResetPasswordConfirm(string token, string newPassword)
         {

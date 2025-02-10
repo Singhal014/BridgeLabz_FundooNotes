@@ -4,6 +4,7 @@ using DataAccessLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250208193100_FixCascadeIssue")]
+    partial class FixCascadeIssue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,15 +41,15 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("NoteCollaborators", b =>
                 {
-                    b.Property<int>("NoteId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CollaboratorId")
                         .HasColumnType("int");
 
-                    b.HasKey("NoteId", "CollaboratorId");
+                    b.Property<int>("NoteId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("CollaboratorId");
+                    b.HasKey("CollaboratorId", "NoteId");
+
+                    b.HasIndex("NoteId");
 
                     b.ToTable("NoteCollaborators");
                 });

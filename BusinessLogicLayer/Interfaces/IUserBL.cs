@@ -13,6 +13,8 @@ namespace BusinessLogicLayer.Interfaces
         int GetUserIdFromToken(string token);
         void SendEmail(string to, string subject, string body);
 
+        User GetUserByEmail(string email);
+
         // Added GenerateJwtToken to the interface
         string GenerateJwtToken(User user, int expiresInMinutes = 15);
     }

@@ -29,6 +29,8 @@ namespace RepoLayer.Entity
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public ICollection<Label> Labels { get; set; } = new List<Label>();
 
+        public ICollection<User> Collaborators { get; set; } = new List<User>();
+
     }
 }
 

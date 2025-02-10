@@ -22,12 +22,14 @@ namespace PresentationLayer.Controllers
             _userService = userService;
         }
 
-        
-
         [HttpPost]
-        [Authorize]
         public IActionResult Create([FromBody] NoteModel noteDto)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
             if (noteDto == null || string.IsNullOrEmpty(noteDto.Title) || string.IsNullOrEmpty(noteDto.Description))
             {
                 return BadRequest(new { Message = "Title and description are required.", Success = false });
@@ -55,14 +57,17 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpGet("getnotes")]
-        [Authorize]
         public IActionResult GetAllNotes()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
             try
             {
                 int userId = GetUserIdFromToken();
-                var notes = _noteService.GetAllNotes()?
-                    .Where(n => n.CreatedBy == userId)
+                var notes = _noteService.GetAllNotes(userId)?
                     .Select(n => new NoteResponse
                     {
                         Id = n.Id,
@@ -84,9 +89,13 @@ namespace PresentationLayer.Controllers
 
 
         [HttpGet("{id}")]
-        [Authorize]
         public IActionResult GetNote(int id)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
             try
             {
                 int userId = GetUserIdFromToken();
@@ -116,9 +125,13 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPut("update/{id}")]
-        [Authorize]
         public IActionResult Update([FromRoute] int id, [FromBody] NoteModel noteDto)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
             if (noteDto == null || string.IsNullOrEmpty(noteDto.Title) || string.IsNullOrEmpty(noteDto.Description))
             {
                 return BadRequest(new { Message = "Title and description are required.", Success = false });
@@ -147,9 +160,13 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpDelete("delete/{id}")]
-        [Authorize]
         public IActionResult Delete([FromRoute] int id)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
             try
             {
                 int userId = GetUserIdFromToken();
@@ -175,14 +192,23 @@ namespace PresentationLayer.Controllers
         [Authorize]
         public IActionResult AddLabel([FromBody] LabelModel labelDto)
         {
-            if (labelDto == null || string.IsNullOrEmpty(labelDto.LabelName))
+            if (labelDto == null || string.IsNullOrEmpty(labelDto.LabelName) || labelDto.NoteId <= 0)
             {
-                return BadRequest(new { Message = "Label name is required.", Success = false });
+                return BadRequest(new { Message = "Label name and NoteId are required.", Success = false });
             }
 
             try
             {
                 int userId = GetUserIdFromToken();
+
+                // Check if the note exists and belongs to the user
+                var note = _noteService.GetNoteById(labelDto.NoteId);
+                if (note == null || note.CreatedBy != userId)
+                {
+                    return NotFound(new { Message = "Note not found or access denied.", Success = false });
+                }
+
+                // Create and add label
                 var label = new Label
                 {
                     Name = labelDto.LabelName,
@@ -190,17 +216,27 @@ namespace PresentationLayer.Controllers
                 };
 
                 _noteService.AddLabel(label);
-                return Ok(new { Message = "Label added successfully.", Success = true, Data = labelDto });
+
+                // Associate label with note
+                _noteService.AddLabelToNote(labelDto.NoteId, label.Id);
+
+                return Ok(new { Message = "Label added to note successfully.", Success = true, Data = labelDto });
             }
             catch (UnauthorizedAccessException ex)
             {
                 return Unauthorized(new { Message = ex.Message, Success = false });
             }
         }
+
+
         [HttpGet("labels")]
-        [Authorize]
         public IActionResult GetAllLabels()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
             try
             {
                 var labels = _noteService.GetAllLabels()
@@ -220,9 +256,13 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost("{noteId}/label/{labelId}")]
-        [Authorize]
         public IActionResult AddLabelToNote([FromRoute] int noteId, [FromRoute] int labelId)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
             try
             {
                 int userId = GetUserIdFromToken();
@@ -243,9 +283,13 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpDelete("{noteId}/label/{labelId}")]
-        [Authorize]
         public IActionResult RemoveLabelFromNote([FromRoute] int noteId, [FromRoute] int labelId)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
             try
             {
                 int userId = GetUserIdFromToken();
@@ -265,9 +309,145 @@ namespace PresentationLayer.Controllers
             }
         }
 
-      
 
-        
+        [HttpDelete("label/{labelId}")]
+        public IActionResult DeleteLabel([FromRoute] int labelId)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
+            try
+            {
+                int userId = GetUserIdFromToken();
+
+                // Directly delete the label by its ID
+                bool isDeleted = _noteService.DeleteLabel(labelId, userId);
+
+                if (!isDeleted)
+                {
+                    return NotFound(new { Message = "Label not found or access denied.", Success = false });
+                }
+
+                return Ok(new { Message = "Label deleted successfully.", Success = true });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred while deleting the label.", Success = false, Error = ex.Message });
+            }
+        }
+
+
+        [HttpPost("{noteId}/collaborators/invite")]
+        public IActionResult InviteCollaborator([FromRoute] int noteId, [FromBody] CollaboratorModel request)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
+            if (request == null || string.IsNullOrEmpty(request.Email))
+            {
+                return BadRequest(new { Message = "Email is required.", Success = false });
+            }
+
+            try
+            {
+                int userId = GetUserIdFromToken();
+                var note = _noteService.GetNoteById(noteId);
+
+                if (note == null || note.CreatedBy != userId)
+                {
+                    return NotFound(new { Message = "Note not found or access denied.", Success = false });
+                }
+
+                _noteService.InviteCollaborator(noteId, request.Email);
+                return Ok(new { Message = "Collaborator invited successfully.", Success = true });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Message = ex.Message, Success = false });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { Message = ex.Message, Success = false });
+            }
+        }
+
+        [HttpDelete("{noteId}/collaborators/remove")]
+        public IActionResult RemoveCollaborator([FromRoute] int noteId, [FromBody] CollaboratorModel request)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
+            if (request == null || string.IsNullOrEmpty(request.Email))
+            {
+                return BadRequest(new { Message = "Email is required.", Success = false });
+            }
+
+            try
+            {
+                int userId = GetUserIdFromToken();
+                var note = _noteService.GetNoteById(noteId);
+
+                if (note == null || note.CreatedBy != userId)
+                {
+                    return NotFound(new { Message = "Note not found or access denied.", Success = false });
+                }
+
+                _noteService.RemoveCollaborator(noteId, request.Email);
+                return Ok(new { Message = "Collaborator removed successfully.", Success = true });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Message = ex.Message, Success = false });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { Message = ex.Message, Success = false });
+            }
+        }
+
+        [HttpGet("{noteId}/collaborators")]
+        public IActionResult GetCollaborators([FromRoute] int noteId)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { Message = "User is unauthorized.", Success = false });
+            }
+
+            try
+            {
+                int userId = GetUserIdFromToken();
+                var note = _noteService.GetNoteById(noteId);
+
+                if (note == null || note.CreatedBy != userId)
+                {
+                    return NotFound(new { Message = "Note not found or access denied.", Success = false });
+                }
+
+                var collaborators = _noteService.GetCollaboratorsByNoteId(noteId)
+                    .Select(u => new
+                    {
+                        UserId = u.Id,
+                        Email = u.Email
+                    })
+                    .ToList();
+
+                return Ok(new { Message = "Collaborators retrieved successfully.", Success = true, Data = collaborators });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Message = ex.Message, Success = false });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { Message = ex.Message, Success = false });
+            }
+        }
 
         private int GetUserIdFromToken()
         {

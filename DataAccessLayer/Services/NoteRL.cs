@@ -38,7 +38,6 @@ namespace RepoLayer.Services
                 .Include(n => n.Collaborators)
                 .Where(n => (n.CreatedBy == userId || n.Collaborators.Any(c => c.Id == userId))
                             && !n.IsTrashed
-                            && !n.IsDeleted
                             && !n.IsArchived) 
                 .ToList();
         }
@@ -59,7 +58,6 @@ namespace RepoLayer.Services
                 existingNote.Description = note.Description;
                 existingNote.IsArchived = note.IsArchived;
                 existingNote.IsTrashed = note.IsTrashed;
-                existingNote.IsDeleted = note.IsDeleted;
                 _context.SaveChanges();
             }
         }
@@ -69,7 +67,7 @@ namespace RepoLayer.Services
             return _context.Notes
                 .Include(n => n.Labels)
                 .Include(n => n.Collaborators)
-                .Where(n => n.CreatedBy == userId && n.IsTrashed && !n.IsDeleted)
+                .Where(n => n.CreatedBy == userId && n.IsTrashed)
                 .ToList();
         }
 

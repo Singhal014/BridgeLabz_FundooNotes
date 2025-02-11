@@ -21,7 +21,6 @@ namespace RepoLayer.Entity
 
         public bool IsTrashed { get; set; }
 
-        public bool IsDeleted { get; set; }
 
         [ForeignKey("User")]
         public int CreatedBy { get; set; }

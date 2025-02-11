@@ -13,8 +13,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Logging.ClearProviders();  // Clears default logging providers
-builder.Logging.AddConsole();      // Enables logging to the console
+builder.Logging.ClearProviders();  
+builder.Logging.AddConsole();      
 // Register IConfiguration
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 

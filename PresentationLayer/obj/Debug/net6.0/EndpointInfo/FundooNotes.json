@@ -113,7 +113,7 @@
         }
       }
     },
-    "/notes/{id}/archive": {
+    "/notes/archive/{id}": {
       "post": {
         "tags": [
           "Note"
@@ -136,7 +136,7 @@
         }
       }
     },
-    "/notes/{id}/unarchive": {
+    "/notes/unarchive/{id}": {
       "post": {
         "tags": [
           "Note"
@@ -171,7 +171,30 @@
         }
       }
     },
-    "/notes/{id}/trash": {
+    "/notes/trash/{id}": {
+      "put": {
+        "tags": [
+          "Note"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/notes/restore/{id}": {
       "post": {
         "tags": [
           "Note"
@@ -194,30 +217,7 @@
         }
       }
     },
-    "/notes/{id}/restore": {
-      "post": {
-        "tags": [
-          "Note"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/notes/{id}/delete-permanently": {
+    "/notes/delete/{id}": {
       "delete": {
         "tags": [
           "Note"

@@ -33,86 +33,6 @@
   },
   {
     "ContainingType": "PresentationLayer.Controllers.NoteController",
-    "Method": "ArchiveNote",
-    "RelativePath": "notes/{id}/archive",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PresentationLayer.Controllers.NoteController",
-    "Method": "DeleteNotePermanently",
-    "RelativePath": "notes/{id}/delete-permanently",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PresentationLayer.Controllers.NoteController",
-    "Method": "RestoreNote",
-    "RelativePath": "notes/{id}/restore",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PresentationLayer.Controllers.NoteController",
-    "Method": "TrashNote",
-    "RelativePath": "notes/{id}/trash",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PresentationLayer.Controllers.NoteController",
-    "Method": "UnarchiveNote",
-    "RelativePath": "notes/{id}/unarchive",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PresentationLayer.Controllers.NoteController",
     "Method": "GetCollaborators",
     "RelativePath": "notes/{noteId}/collaborators",
     "HttpMethod": "GET",
@@ -213,12 +133,44 @@
   },
   {
     "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "ArchiveNote",
+    "RelativePath": "notes/archive/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
     "Method": "GetArchivedNotes",
     "RelativePath": "notes/archived",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "DeleteNotePermanently",
+    "RelativePath": "notes/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -275,12 +227,60 @@
   },
   {
     "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "RestoreNote",
+    "RelativePath": "notes/restore/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "TrashNote",
+    "RelativePath": "notes/trash/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
     "Method": "GetTrashedNotes",
     "RelativePath": "notes/trashed",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PresentationLayer.Controllers.NoteController",
+    "Method": "UnarchiveNote",
+    "RelativePath": "notes/unarchive/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

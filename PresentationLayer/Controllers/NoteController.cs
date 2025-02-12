@@ -72,7 +72,7 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        [HttpGet("getnotes")]
+        [HttpGet]
         public IActionResult GetAllNotes()
         {
             _logger.LogInformation("GetAllNotes method called.");
@@ -164,7 +164,7 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        [HttpPut("update/{id}")]
+        [HttpPut("/{id}")]
         public IActionResult Update([FromRoute] int id, [FromBody] NoteModel noteDto)
         {
             _logger.LogInformation($"Update method called for note ID: {id}.");
@@ -213,7 +213,7 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        [HttpPost("archive/{id}")]
+        [HttpPost("/{id}/archive")]
         public IActionResult ArchiveNote([FromRoute] int id)
         {
             _logger.LogInformation($"ArchiveNote method called for note ID: {id}.");
@@ -246,7 +246,7 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        [HttpPost("unarchive/{id}")]
+        [HttpPost("{id}/unarchive")]
         public IActionResult UnarchiveNote([FromRoute] int id)
         {
             _logger.LogInformation($"UnarchiveNote method called for note ID: {id}.");
@@ -316,7 +316,7 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        [HttpPut("trash/{id}")]
+        [HttpPut("{id}/trash")]
         public IActionResult TrashNote([FromRoute] int id)
         {
             _logger.LogInformation($"TrashNote method called for note ID: {id}.");
@@ -370,7 +370,7 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        [HttpPost("restore/{id}")]
+        [HttpPost("{id}/restore")]
         public IActionResult RestoreNote([FromRoute] int id)
         {
             _logger.LogInformation($"RestoreNote method called for note ID: {id}.");
@@ -412,7 +412,7 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("{id}/delete")]
         public IActionResult DeleteNotePermanently([FromRoute] int id)
         {
             _logger.LogInformation($"DeleteNotePermanently method called for note ID: {id}.");

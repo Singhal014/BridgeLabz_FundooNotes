@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace RepoLayer.Entity
 {
@@ -16,7 +17,7 @@ namespace RepoLayer.Entity
         public string Name { get; set; }
 
         public int CreatedBy { get; set; }
-
+        [JsonIgnore]
         public ICollection<Note> Notes { get; set; } = new List<Note>();
     }
 }

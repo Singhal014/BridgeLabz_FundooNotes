@@ -29,8 +29,13 @@ namespace RepoLayer.Entity
         public virtual User User { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        [JsonIgnore] // System.Text.Json
+        [Newtonsoft.Json.JsonIgnore] // Newtonsoft.Json
         public ICollection<Label> Labels { get; set; } = new List<Label>();
 
+        [JsonIgnore] // System.Text.Json
+        [Newtonsoft.Json.JsonIgnore] // Newtonsoft.Json
         public ICollection<User> Collaborators { get; set; } = new List<User>();
     }
 }

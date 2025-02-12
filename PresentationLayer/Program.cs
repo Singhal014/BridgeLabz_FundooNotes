@@ -1,4 +1,4 @@
-using BusinessLayer.Interfaces;
+﻿using BusinessLayer.Interfaces;
 using BusinessLogicLayer.Interfaces;
 using BusinessLogicLayer.Services;
 using DataAccessLayer.Context;
@@ -10,25 +10,25 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Logging.ClearProviders();  
-builder.Logging.AddConsole();      
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
 // Register IConfiguration
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
-// Configure DbContext
+// Configure DbContext (Remove QuerySplittingBehavior)
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Configure JSON Serialization
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-});
-
-
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+                 
 
 // Register repositories
 builder.Services.AddScoped<IUserRL, UserRL>();
@@ -37,6 +37,13 @@ builder.Services.AddScoped<INoteRL, NoteRL>();
 // Register services
 builder.Services.AddScoped<IUserBL, UserBl>();
 builder.Services.AddScoped<INoteBL, NoteBL>();
+
+// Configure Redis
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration["Redis:ConnectionString"];
+    options.InstanceName = "FundooNotes_"; // Optional prefix for Redis keys
+});
 
 // Configure JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

@@ -25,10 +25,12 @@ namespace RepoLayer.Entity
         [JsonIgnore]
         public bool IsVerified { get; set; } = false;
 
-        [JsonIgnore]
+        [JsonIgnore] // System.Text.Json
+        [Newtonsoft.Json.JsonIgnore] // Newtonsoft.Json
         public ICollection<Note> Notes { get; set; } = new List<Note>();
 
-        [JsonIgnore]
+        [JsonIgnore] // System.Text.Json
+        [Newtonsoft.Json.JsonIgnore] // Newtonsoft.Json
         public ICollection<Note> CollaboratedNotes { get; set; } = new List<Note>();
     }
 }

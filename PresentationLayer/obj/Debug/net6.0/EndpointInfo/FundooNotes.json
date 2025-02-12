@@ -12,6 +12,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NoteModel"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/NoteModel"
@@ -34,9 +39,7 @@
             "description": "Success"
           }
         }
-      }
-    },
-    "/notes/getnotes": {
+      },
       "get": {
         "tags": [
           "Note"
@@ -71,7 +74,7 @@
         }
       }
     },
-    "/notes/update/{id}": {
+    "/{id}": {
       "put": {
         "tags": [
           "Note"
@@ -89,6 +92,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NoteModel"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/NoteModel"
@@ -113,7 +121,7 @@
         }
       }
     },
-    "/notes/archive/{id}": {
+    "/{id}/archive": {
       "post": {
         "tags": [
           "Note"
@@ -136,7 +144,7 @@
         }
       }
     },
-    "/notes/unarchive/{id}": {
+    "/notes/{id}/unarchive": {
       "post": {
         "tags": [
           "Note"
@@ -171,7 +179,7 @@
         }
       }
     },
-    "/notes/trash/{id}": {
+    "/notes/{id}/trash": {
       "put": {
         "tags": [
           "Note"
@@ -194,7 +202,7 @@
         }
       }
     },
-    "/notes/restore/{id}": {
+    "/notes/{id}/restore": {
       "post": {
         "tags": [
           "Note"
@@ -217,7 +225,7 @@
         }
       }
     },
-    "/notes/delete/{id}": {
+    "/notes/{id}/delete": {
       "delete": {
         "tags": [
           "Note"
@@ -259,6 +267,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LabelModel"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/LabelModel"
@@ -398,6 +411,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CollaboratorModel"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CollaboratorModel"
@@ -440,6 +458,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CollaboratorModel"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CollaboratorModel"
@@ -494,6 +517,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/User"
@@ -525,6 +553,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginModel"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/LoginModel"
@@ -556,6 +589,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordModel"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/ResetPasswordModel"
@@ -587,6 +625,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordModel"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/ForgotPasswordModel"
@@ -618,6 +661,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewPasswordModel"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/NewPasswordModel"

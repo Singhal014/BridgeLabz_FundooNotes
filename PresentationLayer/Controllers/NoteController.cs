@@ -17,13 +17,13 @@ namespace PresentationLayer.Controllers
     {
         private readonly INoteBL _noteService;
         private readonly IUserBL _userService;
-        private readonly ILogger<NoteController> _logger; 
+        private readonly ILogger<NoteController> _logger;
 
         public NoteController(INoteBL noteService, IUserBL userService, ILogger<NoteController> logger)
         {
             _noteService = noteService;
             _userService = userService;
-            _logger = logger; 
+            _logger = logger;
         }
 
         [HttpPost]
@@ -502,14 +502,14 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        
-    
 
 
 
-// Label API
 
-[HttpPost("label")]
+
+        // Label API
+
+        [HttpPost("label")]
         [Authorize]
         public IActionResult AddLabel([FromBody] LabelModel labelDto)
         {

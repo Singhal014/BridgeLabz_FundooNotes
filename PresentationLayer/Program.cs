@@ -42,7 +42,7 @@ builder.Services.AddScoped<INoteBL, NoteBL>();
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration["Redis:ConnectionString"];
-    options.InstanceName = "FundooNotes_"; // Optional prefix for Redis keys
+    options.InstanceName = "FundooNotes_"; 
 });
 
 // Configure JWT Authentication

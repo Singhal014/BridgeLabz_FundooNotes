@@ -115,3 +115,4 @@ E:\C#\ThreeTierArchitecture\PresentationLayer\bin\Debug\net6.0\Microsoft.AspNetC
 E:\C#\ThreeTierArchitecture\PresentationLayer\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 E:\C#\ThreeTierArchitecture\PresentationLayer\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 E:\C#\ThreeTierArchitecture\PresentationLayer\bin\Debug\net6.0\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+E:\C#\ThreeTierArchitecture\PresentationLayer\bin\Debug\net6.0\RabbitMQ.Client.dll

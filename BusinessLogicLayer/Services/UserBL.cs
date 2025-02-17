@@ -12,6 +12,11 @@ using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 using RepoLayer.Entity;
+using Microsoft.AspNetCore.Connections;
+using Newtonsoft.Json;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+
 
 namespace BusinessLogicLayer.Services
 {
@@ -20,30 +25,128 @@ namespace BusinessLogicLayer.Services
         private readonly IUserRL _userRepository;
         private readonly IConfiguration _configuration;
 
+        private readonly ConnectionFactory _rabbitMQFactory;
+
         public UserBl(IUserRL userRepository, IConfiguration configuration)
         {
             _userRepository = userRepository;
             _configuration = configuration;
+
+            var rabbitMQConfig = _configuration.GetSection("RabbitMQ");
+            _rabbitMQFactory = new ConnectionFactory()
+            {
+                HostName = rabbitMQConfig["Host"],
+                UserName = rabbitMQConfig["Username"],
+                Password = rabbitMQConfig["Password"]
+            };
+
+            StartRabbitMQConsumer();
         }
+
 
         public string RegisterUser(User user)
         {
+            // Check if the user already exists
             var existingUser = _userRepository.GetUserByEmail(user.Email);
             if (existingUser != null)
             {
                 throw new InvalidOperationException("User with this email already exists.");
             }
 
+            // Hash the password
             user.Password = PasswordHelper.HashPassword(user.Password);
+
+            // Register the user in the database
             _userRepository.RegisterUser(user);
 
+            // Generate a JWT token for the user
             var token = GenerateJwtToken(user);
 
-            var subject = "Your Registration Token";
-            var body = $"Welcome! Use the following token to complete your registration: {token}";
-            SendEmail(user.Email, subject, body);
+            // Prepare the email message
+            var emailMessage = new
+            {
+                Email = user.Email,
+                Subject = "Registration Successful - FundooNotes",
+                Body = $"Congratulations! You have successfully registered on FundooNotes.<br/> Your token: {token}"
+            };
+
+            // Publish the email message to RabbitMQ
+            PublishToQueue("emailQueue", JsonConvert.SerializeObject(emailMessage));
 
             return token;
+        }
+
+        private void PublishToQueue(string queueName, string message)
+        {
+            try
+            {
+                var factory = new ConnectionFactory()
+                {
+                    HostName = "localhost", 
+                    UserName = "guest",     
+                    Password = "guest"     
+                };
+
+                using var connection = factory.CreateConnection();
+                using var channel = connection.CreateModel();
+
+                // Declare the queue
+                channel.QueueDeclare(queue: queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+
+                // Convert the message to bytes
+                var body = Encoding.UTF8.GetBytes(message);
+
+                // Publish the message to the queue
+                channel.BasicPublish(exchange: "", routingKey: queueName, basicProperties: null, body: body);
+
+                Console.WriteLine($" [x] Sent message to {queueName}: {message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error publishing to RabbitMQ: {ex.Message}");
+            }
+        }
+
+        private void StartRabbitMQConsumer()
+        {
+            Task.Run(() =>
+            {
+                try
+                {
+                    var connection = _rabbitMQFactory.CreateConnection();
+                    var channel = connection.CreateModel();
+
+                    channel.QueueDeclare(queue: "emailQueue", durable: false, exclusive: false, autoDelete: false, arguments: null);
+
+                    var consumer = new EventingBasicConsumer(channel);
+                    consumer.Received += (model, ea) =>
+                    {
+                        try
+                        {
+                            var body = ea.Body.ToArray();
+                            var message = Encoding.UTF8.GetString(body);
+                            var emailMessage = JsonConvert.DeserializeObject<EmailMessage>(message);
+
+                            Console.WriteLine($" [x] Received message: {message}");
+
+                            // Send Email
+                            SendEmail(emailMessage.Email, emailMessage.Subject, emailMessage.Body);
+
+                            Console.WriteLine($" [x] Email sent to: {emailMessage.Email}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error processing message: {ex.Message}");
+                        }
+                    };
+
+                    channel.BasicConsume(queue: "emailQueue", autoAck: true, consumer: consumer);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error in RabbitMQ consumer: {ex.Message}");
+                }
+            });
         }
 
         public User LoginUser(string email, string password)
@@ -93,12 +196,20 @@ namespace BusinessLogicLayer.Services
 
             var token = GenerateJwtToken(user);
 
-            var subject = "Password Reset Request";
-            var body = $"To reset your password, use this token: {token}";
-            SendEmail(email, subject, body);
+            // Prepare the email message
+            var emailMessage = new
+            {
+                Email = email,
+                Subject = "Password Reset Request - FundooNotes",
+                Body = $"To reset your password, click the link: {token}"
+            };
+
+            // Publish the email message to RabbitMQ
+            PublishToQueue("emailQueue", JsonConvert.SerializeObject(emailMessage));
 
             return true;
         }
+
         public User GetUserByEmail(string email)
         {
             return _userRepository.GetUserByEmail(email);
@@ -139,26 +250,37 @@ namespace BusinessLogicLayer.Services
 
         public void SendEmail(string to, string subject, string body)
         {
-            var smtpClient = new SmtpClient("smtp.gmail.com")
+            try
             {
-                Port = 587,
-                Credentials = new NetworkCredential("singhalps014@gmail.com", "boiy wbwm ufkm lwnk"),
-                EnableSsl = true,
-            };
+                var smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential("singhalps014@gmail.com", "acmc xprc ycvh rayz"),
+                    EnableSsl = true,
+                    Timeout = 60000 
+                };
 
-            var mailMessage = new MailMessage
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress("singhalps014@gmail.com"),
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = true,
+                };
+
+                mailMessage.To.Add(to);
+
+                smtpClient.Send(mailMessage);
+                Console.WriteLine($"Email sent successfully to: {to}");
+            }
+            catch (Exception ex)
             {
-                From = new MailAddress("singhalps014@gmail.com"),
-                Subject = subject,
-                Body = body,
-                IsBodyHtml = true,
-            };
-
-            mailMessage.To.Add(to);
-            smtpClient.Send(mailMessage);
+                Console.WriteLine($"Error sending email: {ex.Message}");
+            }
         }
 
-        
+
+
         public string GenerateJwtToken(User user, int expiresInMinutes = 15)
         {
             var jwtSettings = _configuration.GetSection("JwtSettings");
@@ -181,6 +303,12 @@ namespace BusinessLogicLayer.Services
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+        private class EmailMessage
+        {
+            public string Email { get; set; }
+            public string Subject { get; set; }
+            public string Body { get; set; }
         }
 
         private Dictionary<string, string> DecodeJwtToken(string token)

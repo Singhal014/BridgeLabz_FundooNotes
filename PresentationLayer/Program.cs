@@ -12,6 +12,9 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Options;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +27,18 @@ builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 // Configure DbContext (Remove QuerySplittingBehavior)
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddSingleton(sp =>
+{
+    var configuration = sp.GetRequiredService<IConfiguration>();
+    return new ConnectionFactory()
+    {
+        HostName = configuration["RabbitMQ:Host"],
+        UserName = configuration["RabbitMQ:Username"],
+        Password = configuration["RabbitMQ:Password"]
+    };
+});
+
 
 // Configure JSON Serialization
 builder.Services.AddControllers().AddNewtonsoftJson(options =>

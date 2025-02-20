@@ -82,9 +82,9 @@ namespace BusinessLogicLayer.Services
             {
                 var factory = new ConnectionFactory()
                 {
-                    HostName = "localhost", 
-                    UserName = "guest",     
-                    Password = "guest"     
+                    HostName = "localhost",
+                    UserName = "guest",
+                    Password = "guest"
                 };
 
                 using var connection = factory.CreateConnection();
@@ -257,7 +257,7 @@ namespace BusinessLogicLayer.Services
                     Port = 587,
                     Credentials = new NetworkCredential("singhalps014@gmail.com", "acmc xprc ycvh rayz"),
                     EnableSsl = true,
-                    Timeout = 60000 
+                    Timeout = 60000
                 };
 
                 var mailMessage = new MailMessage

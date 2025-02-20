@@ -354,6 +354,22 @@
   },
   {
     "ContainingType": "UserController",
+    "Method": "RefreshToken",
+    "RelativePath": "users/refresh-token",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "refreshTokenModel",
+        "Type": "ModelLayer.Models.RefreshTokenModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserController",
     "Method": "ResetPassword",
     "RelativePath": "users/reset-password",
     "HttpMethod": "POST",

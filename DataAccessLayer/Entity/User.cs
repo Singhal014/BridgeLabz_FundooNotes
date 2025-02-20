@@ -32,5 +32,7 @@ namespace RepoLayer.Entity
         [JsonIgnore] // System.Text.Json
         [Newtonsoft.Json.JsonIgnore] // Newtonsoft.Json
         public ICollection<Note> CollaboratedNotes { get; set; } = new List<Note>();
+
+        public string RefreshToken { get; set; }
     }
 }

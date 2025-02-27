@@ -7,5 +7,8 @@ namespace RepoLayer.Interfaces
         void RegisterUser(User user);
         User GetUserByEmail(string email);
         void UpdateUser(User user);
+
+        void SaveRefreshToken(int userId, string refreshToken);
+        User GetUserByRefreshToken(string refreshToken);
     }
 }

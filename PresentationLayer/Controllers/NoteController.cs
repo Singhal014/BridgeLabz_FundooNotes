@@ -164,7 +164,7 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        [HttpPut("/{id}")]
+        [HttpPut("{id}")]
         public IActionResult Update([FromRoute] int id, [FromBody] NoteModel noteDto)
         {
             _logger.LogInformation($"Update method called for note ID: {id}.");
@@ -213,7 +213,7 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        [HttpPost("/{id}/archive")]
+        [HttpPut("{id}/archive")]
         public IActionResult ArchiveNote([FromRoute] int id)
         {
             _logger.LogInformation($"ArchiveNote method called for note ID: {id}.");
@@ -246,7 +246,7 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        [HttpPost("{id}/unarchive")]
+        [HttpPut("{id}/unarchive")]
         public IActionResult UnarchiveNote([FromRoute] int id)
         {
             _logger.LogInformation($"UnarchiveNote method called for note ID: {id}.");
@@ -370,7 +370,7 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        [HttpPost("{id}/restore")]
+        [HttpPut("{id}/restore")]
         public IActionResult RestoreNote([FromRoute] int id)
         {
             _logger.LogInformation($"RestoreNote method called for note ID: {id}.");
@@ -412,7 +412,7 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        [HttpDelete("{id}/delete")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteNotePermanently([FromRoute] int id)
         {
             _logger.LogInformation($"DeleteNotePermanently method called for note ID: {id}.");

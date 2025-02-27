@@ -41,10 +41,9 @@ public class UserController : ControllerBase
         try
         {
             _logger.LogInformation("Login attempt for email: {Email}", loginModel.Email);
-            var user = _userService.LoginUser(loginModel.Email, loginModel.Password);
-            var token = _userService.GenerateJwtToken(user);
+            var (accessToken, refreshToken) = _userService.LoginUser(loginModel.Email, loginModel.Password);
             _logger.LogInformation("User logged in successfully: {Email}", loginModel.Email);
-            return Ok(new { Message = "Login successful.", Token = token });
+            return Ok(new { Message = "Login successful.", AccessToken = accessToken, RefreshToken = refreshToken });
         }
         catch (InvalidOperationException ex)
         {
@@ -107,4 +106,18 @@ public class UserController : ControllerBase
             return BadRequest(new { Message = ex.Message, Success = false });
         }
     }
+    [HttpPost("refresh-token")]
+    public IActionResult RefreshToken([FromBody] RefreshTokenModel request)
+    {
+        try
+        {
+            var newAccessToken = _userService.RefreshAccessToken(request.RefreshToken);
+            return Ok(new { AccessToken = newAccessToken });
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return Unauthorized(new { Message = ex.Message });
+        }
+    }
+
 }

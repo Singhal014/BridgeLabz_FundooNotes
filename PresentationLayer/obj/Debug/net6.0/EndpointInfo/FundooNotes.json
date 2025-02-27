@@ -72,9 +72,7 @@
             "description": "Success"
           }
         }
-      }
-    },
-    "/{id}": {
+      },
       "put": {
         "tags": [
           "Note"
@@ -119,10 +117,31 @@
             "description": "Success"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Note"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
       }
     },
-    "/{id}/archive": {
-      "post": {
+    "/notes/{id}/archive": {
+      "put": {
         "tags": [
           "Note"
         ],
@@ -145,7 +164,7 @@
       }
     },
     "/notes/{id}/unarchive": {
-      "post": {
+      "put": {
         "tags": [
           "Note"
         ],
@@ -203,30 +222,7 @@
       }
     },
     "/notes/{id}/restore": {
-      "post": {
-        "tags": [
-          "Note"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/notes/{id}/delete": {
-      "delete": {
+      "put": {
         "tags": [
           "Note"
         ],
@@ -856,10 +852,6 @@
           "password": {
             "minLength": 6,
             "type": "string"
-          },
-          "refreshToken": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false

@@ -41,5 +41,21 @@ namespace DataAccessLayer.Repositories
                 _context.SaveChanges();
             }
         }
+        public void SaveRefreshToken(int userId, string refreshToken)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+            if (user != null)
+            {
+                user.RefreshToken = refreshToken;
+                _context.Entry(user).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+        }
+
+        public User GetUserByRefreshToken(string refreshToken)
+        {
+            return _context.Users.SingleOrDefault(u => u.RefreshToken == refreshToken);
+        }
+
     }
 }

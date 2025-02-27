@@ -3,40 +3,104 @@
   "WorkspaceRootPath": "E:\\C#\\ThreeTierArchitecture\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0B0626DE-DEBA-47D9-A502-6DE42D1FF170}|PresentationLayer\\FundooNotes.csproj|e:\\c#\\threetierarchitecture\\presentationlayer\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0B0626DE-DEBA-47D9-A502-6DE42D1FF170}|PresentationLayer\\FundooNotes.csproj|solutionrelative:presentationlayer\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|e:\\c#\\threetierarchitecture\\dataaccesslayer\\interfaces\\iuserrl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|solutionrelative:dataaccesslayer\\interfaces\\iuserrl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|e:\\c#\\threetierarchitecture\\dataaccesslayer\\services\\userrl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|solutionrelative:dataaccesslayer\\services\\userrl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E0509BFD-0C58-4A66-A8F1-6C68C2A54288}|BusinessLogicLayer\\BusinessLogicLayer.csproj|e:\\c#\\threetierarchitecture\\businesslogiclayer\\interfaces\\iuserbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E0509BFD-0C58-4A66-A8F1-6C68C2A54288}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\interfaces\\iuserbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|e:\\c#\\threetierarchitecture\\dataaccesslayer\\entity\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|solutionrelative:dataaccesslayer\\entity\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E0509BFD-0C58-4A66-A8F1-6C68C2A54288}|BusinessLogicLayer\\BusinessLogicLayer.csproj|e:\\c#\\threetierarchitecture\\businesslogiclayer\\services\\userbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E0509BFD-0C58-4A66-A8F1-6C68C2A54288}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\services\\userbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{E0509BFD-0C58-4A66-A8F1-6C68C2A54288}|BusinessLogicLayer\\BusinessLogicLayer.csproj|e:\\c#\\threetierarchitecture\\businesslogiclayer\\interfaces\\iuserbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0509BFD-0C58-4A66-A8F1-6C68C2A54288}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\interfaces\\iuserbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|e:\\c#\\threetierarchitecture\\modellayer\\models\\resetpasswordmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|solutionrelative:modellayer\\models\\resetpasswordmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|e:\\c#\\threetierarchitecture\\modellayer\\models\\refreshtokenmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|solutionrelative:modellayer\\models\\refreshtokenmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|e:\\c#\\threetierarchitecture\\modellayer\\models\\noteresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|solutionrelative:modellayer\\models\\noteresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|e:\\c#\\threetierarchitecture\\modellayer\\models\\notemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|solutionrelative:modellayer\\models\\notemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|e:\\c#\\threetierarchitecture\\modellayer\\models\\newpasswordmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|solutionrelative:modellayer\\models\\newpasswordmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|e:\\c#\\threetierarchitecture\\modellayer\\models\\loginmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|solutionrelative:modellayer\\models\\loginmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|e:\\c#\\threetierarchitecture\\modellayer\\models\\labelmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|solutionrelative:modellayer\\models\\labelmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|e:\\c#\\threetierarchitecture\\modellayer\\models\\forgotpasswordmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|solutionrelative:modellayer\\models\\forgotpasswordmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|e:\\c#\\threetierarchitecture\\modellayer\\models\\collaboratormodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B90E3254-3FA2-47DF-99F7-D9038180C5B5}|ModelLayer\\ModelLayer.csproj|solutionrelative:modellayer\\models\\collaboratormodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0B0626DE-DEBA-47D9-A502-6DE42D1FF170}|PresentationLayer\\FundooNotes.csproj|e:\\c#\\threetierarchitecture\\presentationlayer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0B0626DE-DEBA-47D9-A502-6DE42D1FF170}|PresentationLayer\\FundooNotes.csproj|solutionrelative:presentationlayer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0B0626DE-DEBA-47D9-A502-6DE42D1FF170}|PresentationLayer\\FundooNotes.csproj|e:\\c#\\threetierarchitecture\\presentationlayer\\controllers\\notecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0B0626DE-DEBA-47D9-A502-6DE42D1FF170}|PresentationLayer\\FundooNotes.csproj|solutionrelative:presentationlayer\\controllers\\notecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0B0626DE-DEBA-47D9-A502-6DE42D1FF170}|PresentationLayer\\FundooNotes.csproj|e:\\c#\\threetierarchitecture\\presentationlayer\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0B0626DE-DEBA-47D9-A502-6DE42D1FF170}|PresentationLayer\\FundooNotes.csproj|solutionrelative:presentationlayer\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E0509BFD-0C58-4A66-A8F1-6C68C2A54288}|BusinessLogicLayer\\BusinessLogicLayer.csproj|e:\\c#\\threetierarchitecture\\businesslogiclayer\\interfaces\\inotebl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E0509BFD-0C58-4A66-A8F1-6C68C2A54288}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\interfaces\\inotebl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|e:\\c#\\threetierarchitecture\\dataaccesslayer\\interfaces\\iuserrl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|solutionrelative:dataaccesslayer\\interfaces\\iuserrl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|e:\\c#\\threetierarchitecture\\dataaccesslayer\\interfaces\\inoterl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|solutionrelative:dataaccesslayer\\interfaces\\inoterl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|e:\\c#\\threetierarchitecture\\dataaccesslayer\\services\\userrl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|solutionrelative:dataaccesslayer\\services\\userrl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|e:\\c#\\threetierarchitecture\\dataaccesslayer\\services\\noterl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|solutionrelative:dataaccesslayer\\services\\noterl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|e:\\c#\\threetierarchitecture\\dataaccesslayer\\entity\\note.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|solutionrelative:dataaccesslayer\\entity\\note.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|e:\\c#\\threetierarchitecture\\dataaccesslayer\\context\\applicationdbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|solutionrelative:dataaccesslayer\\context\\applicationdbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|e:\\c#\\threetierarchitecture\\dataaccesslayer\\context\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A82D5EB2-6781-4F2D-8085-DC4CCD40ABB4}|DataAccessLayer\\RepoLayer.csproj|solutionrelative:dataaccesslayer\\context\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{0B0626DE-DEBA-47D9-A502-6DE42D1FF170}|PresentationLayer\\FundooNotes.csproj|e:\\c#\\threetierarchitecture\\presentationlayer\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{0B0626DE-DEBA-47D9-A502-6DE42D1FF170}|PresentationLayer\\FundooNotes.csproj|solutionrelative:presentationlayer\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0B0626DE-DEBA-47D9-A502-6DE42D1FF170}|PresentationLayer\\FundooNotes.csproj|e:\\c#\\threetierarchitecture\\presentationlayer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0B0626DE-DEBA-47D9-A502-6DE42D1FF170}|PresentationLayer\\FundooNotes.csproj|solutionrelative:presentationlayer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E0509BFD-0C58-4A66-A8F1-6C68C2A54288}|BusinessLogicLayer\\BusinessLogicLayer.csproj|e:\\c#\\threetierarchitecture\\businesslogiclayer\\services\\notebl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0509BFD-0C58-4A66-A8F1-6C68C2A54288}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\services\\notebl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,17 +110,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\PresentationLayer\\Program.cs",
               "RelativeDocumentMoniker": "PresentationLayer\\Program.cs",
               "ToolTip": "E:\\C#\\ThreeTierArchitecture\\PresentationLayer\\Program.cs",
               "RelativeToolTip": "PresentationLayer\\Program.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAAG4AAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAHEAAAAAAAAAAAAqwJAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-16T18:16:39.375Z",
               "IsPinned": true
@@ -71,105 +135,292 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "IUserRL.cs",
-              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Interfaces\\IUserRL.cs",
-              "RelativeDocumentMoniker": "DataAccessLayer\\Interfaces\\IUserRL.cs",
-              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Interfaces\\IUserRL.cs",
-              "RelativeToolTip": "DataAccessLayer\\Interfaces\\IUserRL.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-18T05:42:00.496Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\PresentationLayer\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "PresentationLayer\\Controllers\\UserController.cs",
-              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\PresentationLayer\\Controllers\\UserController.cs",
-              "RelativeToolTip": "PresentationLayer\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAE4AAAAAAAAAAADwv24AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T04:12:44.176Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserRL.cs",
-              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Services\\UserRL.cs",
-              "RelativeDocumentMoniker": "DataAccessLayer\\Services\\UserRL.cs",
-              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Services\\UserRL.cs",
-              "RelativeToolTip": "DataAccessLayer\\Services\\UserRL.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T04:08:37.504Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "IUserBL.cs",
-              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\BusinessLogicLayer\\Interfaces\\IUserBL.cs",
-              "RelativeDocumentMoniker": "BusinessLogicLayer\\Interfaces\\IUserBL.cs",
-              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\BusinessLogicLayer\\Interfaces\\IUserBL.cs",
-              "RelativeToolTip": "BusinessLogicLayer\\Interfaces\\IUserBL.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Title": "ResetPasswordModel.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\ResetPasswordModel.cs",
+              "RelativeDocumentMoniker": "ModelLayer\\Models\\ResetPasswordModel.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\ResetPasswordModel.cs",
+              "RelativeToolTip": "ModelLayer\\Models\\ResetPasswordModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-18T05:45:38.166Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-27T17:55:32.654Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "RefreshTokenModel.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\RefreshTokenModel.cs",
+              "RelativeDocumentMoniker": "ModelLayer\\Models\\RefreshTokenModel.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\RefreshTokenModel.cs",
+              "RelativeToolTip": "ModelLayer\\Models\\RefreshTokenModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T17:55:28.211Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "NoteResponse.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\NoteResponse.cs",
+              "RelativeDocumentMoniker": "ModelLayer\\Models\\NoteResponse.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\NoteResponse.cs",
+              "RelativeToolTip": "ModelLayer\\Models\\NoteResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T17:55:21.05Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "NoteModel.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\NoteModel.cs",
+              "RelativeDocumentMoniker": "ModelLayer\\Models\\NoteModel.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\NoteModel.cs",
+              "RelativeToolTip": "ModelLayer\\Models\\NoteModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T17:55:15.206Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "UserBL.cs",
               "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\BusinessLogicLayer\\Services\\UserBL.cs",
               "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\UserBL.cs",
               "ToolTip": "E:\\C#\\ThreeTierArchitecture\\BusinessLogicLayer\\Services\\UserBL.cs",
               "RelativeToolTip": "BusinessLogicLayer\\Services\\UserBL.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEIBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAswJcAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-14T05:29:20.129Z",
+              "WhenOpened": "2025-02-14T05:29:20.129Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IUserBL.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\BusinessLogicLayer\\Interfaces\\IUserBL.cs",
+              "RelativeDocumentMoniker": "BusinessLogicLayer\\Interfaces\\IUserBL.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\BusinessLogicLayer\\Interfaces\\IUserBL.cs",
+              "RelativeToolTip": "BusinessLogicLayer\\Interfaces\\IUserBL.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAgwBsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T05:45:38.166Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "User.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Entity\\User.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Entity\\User.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Entity\\User.cs",
+              "RelativeToolTip": "DataAccessLayer\\Entity\\User.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAkwCQAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T17:50:50.456Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
+              "Title": "NewPasswordModel.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\NewPasswordModel.cs",
+              "RelativeDocumentMoniker": "ModelLayer\\Models\\NewPasswordModel.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\NewPasswordModel.cs",
+              "RelativeToolTip": "ModelLayer\\Models\\NewPasswordModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T17:55:10.748Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LoginModel.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\LoginModel.cs",
+              "RelativeDocumentMoniker": "ModelLayer\\Models\\LoginModel.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\LoginModel.cs",
+              "RelativeToolTip": "ModelLayer\\Models\\LoginModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T17:55:06.285Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "LabelModel.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\LabelModel.cs",
+              "RelativeDocumentMoniker": "ModelLayer\\Models\\LabelModel.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\LabelModel.cs",
+              "RelativeToolTip": "ModelLayer\\Models\\LabelModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T17:55:02.126Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ForgotPasswordModel.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\ForgotPasswordModel.cs",
+              "RelativeDocumentMoniker": "ModelLayer\\Models\\ForgotPasswordModel.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\ForgotPasswordModel.cs",
+              "RelativeToolTip": "ModelLayer\\Models\\ForgotPasswordModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T17:54:52.552Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CollaboratorModel.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\CollaboratorModel.cs",
+              "RelativeDocumentMoniker": "ModelLayer\\Models\\CollaboratorModel.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\ModelLayer\\Models\\CollaboratorModel.cs",
+              "RelativeToolTip": "ModelLayer\\Models\\CollaboratorModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T17:54:48.336Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "NoteController.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\PresentationLayer\\Controllers\\NoteController.cs",
+              "RelativeDocumentMoniker": "PresentationLayer\\Controllers\\NoteController.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\PresentationLayer\\Controllers\\NoteController.cs",
+              "RelativeToolTip": "PresentationLayer\\Controllers\\NoteController.cs",
+              "ViewState": "AgIAAAEDAAAAAAAAAAAqwBEDAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T17:48:51.148Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\PresentationLayer\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "PresentationLayer\\Controllers\\UserController.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\PresentationLayer\\Controllers\\UserController.cs",
+              "RelativeToolTip": "PresentationLayer\\Controllers\\UserController.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAmwCsAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T04:12:44.176Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "INoteBL.cs",
               "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\BusinessLogicLayer\\Interfaces\\INoteBL.cs",
               "RelativeDocumentMoniker": "BusinessLogicLayer\\Interfaces\\INoteBL.cs",
               "ToolTip": "E:\\C#\\ThreeTierArchitecture\\BusinessLogicLayer\\Interfaces\\INoteBL.cs",
               "RelativeToolTip": "BusinessLogicLayer\\Interfaces\\INoteBL.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-18T12:45:47.414Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-18T12:45:47.414Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 16,
+              "Title": "IUserRL.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Interfaces\\IUserRL.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Interfaces\\IUserRL.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Interfaces\\IUserRL.cs",
+              "RelativeToolTip": "DataAccessLayer\\Interfaces\\IUserRL.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T05:42:00.496Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "INoteRL.cs",
               "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Interfaces\\INoteRL.cs",
               "RelativeDocumentMoniker": "DataAccessLayer\\Interfaces\\INoteRL.cs",
               "ToolTip": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Interfaces\\INoteRL.cs",
               "RelativeToolTip": "DataAccessLayer\\Interfaces\\INoteRL.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA1AAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAA3wBEAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-18T06:07:07.749Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 18,
+              "Title": "UserRL.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Services\\UserRL.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Services\\UserRL.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Services\\UserRL.cs",
+              "RelativeToolTip": "DataAccessLayer\\Services\\UserRL.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAQwDwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T04:08:37.504Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "NoteRL.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Services\\NoteRL.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Services\\NoteRL.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Services\\NoteRL.cs",
+              "RelativeToolTip": "DataAccessLayer\\Services\\NoteRL.cs",
+              "ViewState": "AgIAAEoBAAAAAAAAAAAUwFsBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T17:51:40.938Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Note.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Entity\\Note.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Entity\\Note.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Entity\\Note.cs",
+              "RelativeToolTip": "DataAccessLayer\\Entity\\Note.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAA4wAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T17:50:42.534Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ApplicationDbContextFactory.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Context\\ApplicationDbContextFactory.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Context\\ApplicationDbContextFactory.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Context\\ApplicationDbContextFactory.cs",
+              "RelativeToolTip": "DataAccessLayer\\Context\\ApplicationDbContextFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T17:50:04.259Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Context\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Context\\ApplicationDbContext.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\DataAccessLayer\\Context\\ApplicationDbContext.cs",
+              "RelativeToolTip": "DataAccessLayer\\Context\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAYwCkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T17:50:07.889Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
               "Title": "appsettings.json",
               "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\PresentationLayer\\appsettings.json",
               "RelativeDocumentMoniker": "PresentationLayer\\appsettings.json",
               "ToolTip": "E:\\C#\\ThreeTierArchitecture\\PresentationLayer\\appsettings.json",
               "RelativeToolTip": "PresentationLayer\\appsettings.json",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAQAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAiwCUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-02-13T04:29:04.548Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "NoteBL.cs",
+              "DocumentMoniker": "E:\\C#\\ThreeTierArchitecture\\BusinessLogicLayer\\Services\\NoteBL.cs",
+              "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\NoteBL.cs",
+              "ToolTip": "E:\\C#\\ThreeTierArchitecture\\BusinessLogicLayer\\Services\\NoteBL.cs",
+              "RelativeToolTip": "BusinessLogicLayer\\Services\\NoteBL.cs",
+              "ViewState": "AgIAAOAAAAAAAAAAAAAqwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T17:48:16.823Z"
             }
           ]
         }

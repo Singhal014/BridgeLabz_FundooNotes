@@ -15,7 +15,6 @@ using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
@@ -24,10 +23,11 @@ builder.Logging.AddConsole();
 // Register IConfiguration
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
-// Configure DbContext (Remove QuerySplittingBehavior)
+// Configure DbContext 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Configure RabbitMQ
 builder.Services.AddSingleton(sp =>
 {
     var configuration = sp.GetRequiredService<IConfiguration>();
@@ -39,11 +39,9 @@ builder.Services.AddSingleton(sp =>
     };
 });
 
-
 // Configure JSON Serialization
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-                 
 
 // Register repositories
 builder.Services.AddScoped<IUserRL, UserRL>();
@@ -57,7 +55,7 @@ builder.Services.AddScoped<INoteBL, NoteBL>();
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration["Redis:ConnectionString"];
-    options.InstanceName = "FundooNotes_"; 
+    options.InstanceName = "FundooNotes_";
 });
 
 // Configure JWT Authentication
@@ -79,6 +77,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 // Add Authorization
 builder.Services.AddAuthorization();
+
+// Enable CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
+});
 
 // Enable Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -123,8 +133,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Apply CORS Middleware (MUST be before Authentication & Authorization)
+app.UseCors("AllowAllOrigins");
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 app.Run();

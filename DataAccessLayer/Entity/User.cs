@@ -25,14 +25,16 @@ namespace RepoLayer.Entity
         [JsonIgnore]
         public bool IsVerified { get; set; } = false;
 
-        [JsonIgnore] // System.Text.Json
-        [Newtonsoft.Json.JsonIgnore] // Newtonsoft.Json
+        [JsonIgnore]
+        [Newtonsoft.Json.JsonIgnore]
         public ICollection<Note> Notes { get; set; } = new List<Note>();
 
-        [JsonIgnore] // System.Text.Json
-        [Newtonsoft.Json.JsonIgnore] // Newtonsoft.Json
+        [JsonIgnore]
+        [Newtonsoft.Json.JsonIgnore]
         public ICollection<Note> CollaboratedNotes { get; set; } = new List<Note>();
-
+        [JsonIgnore]
         public string RefreshToken { get; set; }
+        [JsonIgnore]
+        public DateTime? RefreshTokenExpiry { get; set; }
     }
 }

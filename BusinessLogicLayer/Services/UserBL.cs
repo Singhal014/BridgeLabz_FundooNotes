@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Connections;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using System.Security.Cryptography;
 
 
 namespace BusinessLogicLayer.Services
@@ -43,26 +44,17 @@ namespace BusinessLogicLayer.Services
             StartRabbitMQConsumer();
         }
 
-
         public string RegisterUser(User user)
         {
-            // Check if the user already exists
             var existingUser = _userRepository.GetUserByEmail(user.Email);
             if (existingUser != null)
             {
                 throw new InvalidOperationException("User with this email already exists.");
             }
-
-            // Hash the password
             user.Password = PasswordHelper.HashPassword(user.Password);
-
-            // Register the user in the database
             _userRepository.RegisterUser(user);
-
-            // Generate a JWT token for the user
             var token = GenerateJwtToken(user);
 
-            // Prepare the email message
             var emailMessage = new
             {
                 Email = user.Email,
@@ -90,10 +82,8 @@ namespace BusinessLogicLayer.Services
                 using var connection = factory.CreateConnection();
                 using var channel = connection.CreateModel();
 
-                // Declare the queue
                 channel.QueueDeclare(queue: queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
 
-                // Convert the message to bytes
                 var body = Encoding.UTF8.GetBytes(message);
 
                 // Publish the message to the queue
@@ -128,8 +118,6 @@ namespace BusinessLogicLayer.Services
                             var emailMessage = JsonConvert.DeserializeObject<EmailMessage>(message);
 
                             Console.WriteLine($" [x] Received message: {message}");
-
-                            // Send Email
                             SendEmail(emailMessage.Email, emailMessage.Subject, emailMessage.Body);
 
                             Console.WriteLine($" [x] Email sent to: {emailMessage.Email}");
@@ -149,7 +137,7 @@ namespace BusinessLogicLayer.Services
             });
         }
 
-        public User LoginUser(string email, string password)
+        public (string AccessToken, string RefreshToken) LoginUser(string email, string password)
         {
             var user = _userRepository.GetUserByEmail(email);
             if (user == null || !PasswordHelper.VerifyPassword(password, user.Password))
@@ -157,7 +145,31 @@ namespace BusinessLogicLayer.Services
                 throw new InvalidOperationException("Invalid email or password.");
             }
 
-            return user;
+            string accessToken = GenerateJwtToken(user);
+            string refreshToken = GenerateRefreshToken();
+
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(60);
+
+            _userRepository.UpdateUser(user);
+
+            return (accessToken, refreshToken);
+        }
+
+        public string GenerateRefreshToken()
+        {
+            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+        }
+
+        public string RefreshAccessToken(string refreshToken)
+        {
+            var user = _userRepository.GetUserByRefreshToken(refreshToken);
+            if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiry < DateTime.UtcNow)
+            {
+                throw new UnauthorizedAccessException("Invalid or expired refresh token.");
+            }
+
+            return GenerateJwtToken(user);
         }
 
         public bool ResetPassword(string token, string currentPassword, string newPassword)
@@ -196,7 +208,6 @@ namespace BusinessLogicLayer.Services
 
             var token = GenerateJwtToken(user);
 
-            // Prepare the email message
             var emailMessage = new
             {
                 Email = email,
@@ -279,8 +290,6 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-
-
         public string GenerateJwtToken(User user, int expiresInMinutes = 15)
         {
             var jwtSettings = _configuration.GetSection("JwtSettings");
@@ -304,13 +313,6 @@ namespace BusinessLogicLayer.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        private class EmailMessage
-        {
-            public string Email { get; set; }
-            public string Subject { get; set; }
-            public string Body { get; set; }
-        }
-
         private Dictionary<string, string> DecodeJwtToken(string token)
         {
             var handler = new JwtSecurityTokenHandler();
@@ -318,5 +320,15 @@ namespace BusinessLogicLayer.Services
 
             return jwtToken.Claims.ToDictionary(c => c.Type, c => c.Value);
         }
+
+
+        private class EmailMessage
+        {
+            public string Email { get; set; }
+            public string Subject { get; set; }
+            public string Body { get; set; }
+        }
+
+
     }
 }

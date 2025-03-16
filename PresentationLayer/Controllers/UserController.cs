@@ -19,21 +19,24 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Register([FromBody] User user)
+    public IActionResult Register([FromBody] UserRegistrationModel userModel)
     {
         try
         {
-            _logger.LogInformation("User registration request received for email: {Email}", user.Email);
-            var token = _userService.RegisterUser(user);
-            _logger.LogInformation("User registered successfully: {Email}", user.Email);
+            _logger.LogInformation("User registration request received for email: {Email}", userModel.Email);
+
+            var token = _userService.RegisterUser(userModel);
+
+            _logger.LogInformation("User registered successfully: {Email}", userModel.Email);
             return Ok(new { Message = "User registered. Check your email for the token.", Success = true, Token = token });
         }
         catch (InvalidOperationException ex)
         {
-            _logger.LogError(ex, "User registration failed for email: {Email}", user.Email);
+            _logger.LogError(ex, "User registration failed for email: {Email}", userModel.Email);
             return Conflict(new { Message = ex.Message, Success = false });
         }
     }
+
 
     [HttpPost("login")]
     public IActionResult Login([FromBody] LoginModel loginModel)

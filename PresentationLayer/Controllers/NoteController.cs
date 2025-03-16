@@ -58,7 +58,7 @@ namespace PresentationLayer.Controllers
                 _noteService.AddNote(note, userId);
 
                 _logger.LogInformation("Note created successfully.");
-                return Ok(new { Message = "Note created successfully.", Success = true, Data = noteDto });
+                return Ok(new { Message = "Note created successfully.", Success = true, Data = note });
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -340,11 +340,11 @@ namespace PresentationLayer.Controllers
                     return NotFound(new { Message = "Note not found or access denied.", Success = false });
                 }
 
-                if (note.IsArchived)
-                {
-                    _logger.LogWarning($"Cannot trash an archived note ID: {id}.");
-                    return BadRequest(new { Message = "Cannot trash an archived note. Please unarchive it first.", Success = false });
-                }
+                //if (note.IsArchived)
+                //{
+                //    _logger.LogWarning($"Cannot trash an archived note ID: {id}.");
+                //    return BadRequest(new { Message = "Cannot trash an archived note. Please unarchive it first.", Success = false });
+                //}
 
                 if (note.IsTrashed)
                 {

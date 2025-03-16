@@ -17,7 +17,6 @@ namespace BusinessLayer.Interfaces
         void DeleteNotePermanently(int noteId, int userId);
         public void RestoreNote(int noteId, int userId);
 
-        // Label Methods
         void AddLabel(Label label);
         void AddLabelToNote(int noteId, int labelId);
         bool DeleteLabel(int labelId, int userId);
@@ -25,7 +24,6 @@ namespace BusinessLayer.Interfaces
         IEnumerable<Label> GetLabelsByNoteId(int noteId);
         IEnumerable<Label> GetAllLabels();
 
-        // Collaborator Methods
         void InviteCollaborator(int noteId, string email);
         void RemoveCollaborator(int noteId, string email);
         IEnumerable<User> GetCollaboratorsByNoteId(int noteId);

@@ -313,8 +313,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "user",
-        "Type": "RepoLayer.Entity.User",
+        "Name": "userModel",
+        "Type": "ModelLayer.Models.UserRegistrationModel",
         "IsRequired": true
       }
     ],

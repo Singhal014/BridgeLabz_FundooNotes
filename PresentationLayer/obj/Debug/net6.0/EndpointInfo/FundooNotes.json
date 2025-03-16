@@ -515,22 +515,22 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/UserRegistrationModel"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/UserRegistrationModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/UserRegistrationModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/UserRegistrationModel"
               }
             }
           }
@@ -824,7 +824,7 @@
         },
         "additionalProperties": false
       },
-      "User": {
+      "UserRegistrationModel": {
         "required": [
           "email",
           "firstName",

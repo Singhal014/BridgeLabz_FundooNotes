@@ -21,7 +21,6 @@ namespace RepoLayer.Services
             _cache = cache;
         }
 
-        // Add a Note
         public void AddNote(Note note)
         {
             _context.Notes.Add(note);
@@ -33,13 +32,11 @@ namespace RepoLayer.Services
             if (!string.IsNullOrEmpty(cachedNotes))
             {
                 var notesList = JsonConvert.DeserializeObject<List<Note>>(cachedNotes);
-                notesList.Add(note); // Add new note to the cached list
+                notesList.Add(note); 
                 _cache.SetString(cacheKey, JsonConvert.SerializeObject(notesList));
             }
         }
 
-
-        // Get a Note by ID
         public Note GetNoteById(int noteId)
         {
             var cacheKey = $"note_{noteId}";
@@ -63,7 +60,6 @@ namespace RepoLayer.Services
             return note;
         }
 
-        // Get All Notes
         public IEnumerable<Note> GetAllNotes(int userId)
         {
             var cacheKey = $"notes_{userId}";
@@ -71,7 +67,9 @@ namespace RepoLayer.Services
 
             if (!string.IsNullOrEmpty(cachedNotes))
             {
-                return JsonConvert.DeserializeObject<IEnumerable<Note>>(cachedNotes);
+                var notesList = JsonConvert.DeserializeObject<List<Note>>(cachedNotes);
+
+                return notesList.Where(n => !n.IsTrashed && !n.IsArchived).ToList();
             }
 
             var notes = _context.Notes
@@ -86,7 +84,7 @@ namespace RepoLayer.Services
             return notes;
         }
 
-        // Update a Note
+
         public void UpdateNote(Note note, int userId)
         {
             var existingNote = _context.Notes
@@ -102,10 +100,8 @@ namespace RepoLayer.Services
                 existingNote.IsTrashed = note.IsTrashed;
                 _context.SaveChanges();
 
-                // Update only the specific note in Redis
                 _cache.SetString($"note_{note.Id}", JsonConvert.SerializeObject(existingNote));
 
-                // Fetch user notes, update only the modified one, and update cache
                 var cachedNotes = _cache.GetString($"notes_{userId}");
                 if (!string.IsNullOrEmpty(cachedNotes))
                 {
@@ -113,14 +109,13 @@ namespace RepoLayer.Services
                     var noteIndex = notesList.FindIndex(n => n.Id == note.Id);
                     if (noteIndex != -1)
                     {
-                        notesList[noteIndex] = existingNote; // Replace updated note
+                        notesList[noteIndex] = existingNote; 
                         _cache.SetString($"notes_{userId}", JsonConvert.SerializeObject(notesList));
                     }
                 }
             }
         }
 
-        // Get Trashed Notes
         public IEnumerable<Note> GetTrashedNotes(int userId)
         {
             return _context.Notes
@@ -131,7 +126,6 @@ namespace RepoLayer.Services
                 .ToList();
         }
 
-        // Delete a Note
         public void DeleteNote(int noteId, int userId)
         {
             var note = _context.Notes
@@ -144,10 +138,8 @@ namespace RepoLayer.Services
                 _context.Notes.Remove(note);
                 _context.SaveChanges();
 
-                // Remove only the specific note from the cache
                 InvalidateCache($"note_{noteId}");
 
-                // Fetch the updated list of notes and update cache
                 var notes = _context.Notes
                     .Where(n => n.CreatedBy == userId && !n.IsTrashed && !n.IsArchived)
                     .Include(n => n.Labels)
@@ -160,7 +152,6 @@ namespace RepoLayer.Services
         }
 
 
-        // Get Archived Notes
         public IEnumerable<Note> GetArchivedNotes(int userId)
         {
             return _context.Notes
@@ -171,7 +162,6 @@ namespace RepoLayer.Services
                 .ToList();
         }
 
-        // Label Methods
         public void AddLabel(Label label)
         {
             _context.Labels.Add(label);
@@ -189,10 +179,8 @@ namespace RepoLayer.Services
                 note.Labels.Add(label);
                 _context.SaveChanges();
 
-                // Update only the specific note in Redis
                 _cache.SetString($"note_{noteId}", JsonConvert.SerializeObject(note));
 
-                // Fetch user notes, update the modified one, and update cache
                 var cachedNotes = _cache.GetString($"notes_{note.CreatedBy}");
                 if (!string.IsNullOrEmpty(cachedNotes))
                 {
@@ -200,7 +188,7 @@ namespace RepoLayer.Services
                     var noteIndex = notesList.FindIndex(n => n.Id == noteId);
                     if (noteIndex != -1)
                     {
-                        notesList[noteIndex] = note; // Replace updated note
+                        notesList[noteIndex] = note; 
                         _cache.SetString($"notes_{note.CreatedBy}", JsonConvert.SerializeObject(notesList));
                     }
                 }
@@ -216,7 +204,6 @@ namespace RepoLayer.Services
             _context.Labels.Remove(label);
             _context.SaveChanges();
 
-            // Update user’s label cache instead of full invalidation
             var cachedLabels = _cache.GetString($"labels_{userId}");
             if (!string.IsNullOrEmpty(cachedLabels))
             {
@@ -239,10 +226,8 @@ namespace RepoLayer.Services
                 note.Labels.Remove(label);
                 _context.SaveChanges();
 
-                // Update only the specific note in Redis
                 _cache.SetString($"note_{noteId}", JsonConvert.SerializeObject(note));
 
-                // Update notes cache for the user
                 var cachedNotes = _cache.GetString($"notes_{note.CreatedBy}");
                 if (!string.IsNullOrEmpty(cachedNotes))
                 {
@@ -271,7 +256,6 @@ namespace RepoLayer.Services
             return _context.Labels.ToList();
         }
 
-        // Collaborator Methods
         public void AddCollaborator(int noteId, int userId)
         {
             var note = _context.Notes.Include(n => n.Collaborators).FirstOrDefault(n => n.Id == noteId);
@@ -282,10 +266,8 @@ namespace RepoLayer.Services
                 note.Collaborators.Add(user);
                 _context.SaveChanges();
 
-                // Update the specific note in Redis
                 _cache.SetString($"note_{noteId}", JsonConvert.SerializeObject(note));
 
-                // Update notes cache for the user
                 var cachedNotes = _cache.GetString($"notes_{note.CreatedBy}");
                 if (!string.IsNullOrEmpty(cachedNotes))
                 {
@@ -311,10 +293,8 @@ namespace RepoLayer.Services
                 note.Collaborators.Remove(user);
                 _context.SaveChanges();
 
-                // Update the specific note in Redis
                 _cache.SetString($"note_{noteId}", JsonConvert.SerializeObject(note));
 
-                // Update notes cache for the user
                 var cachedNotes = _cache.GetString($"notes_{note.CreatedBy}");
                 if (!string.IsNullOrEmpty(cachedNotes))
                 {
@@ -338,7 +318,6 @@ namespace RepoLayer.Services
                 .ToList();
         }
 
-        // Invalidate Cache Helper Method
         private void InvalidateCache(string cacheKey)
         {
             _cache.Remove(cacheKey);

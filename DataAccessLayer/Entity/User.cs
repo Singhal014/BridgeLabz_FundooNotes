@@ -32,9 +32,9 @@ namespace RepoLayer.Entity
         [JsonIgnore]
         [Newtonsoft.Json.JsonIgnore]
         public ICollection<Note> CollaboratedNotes { get; set; } = new List<Note>();
-        [JsonIgnore]
+        
         public string RefreshToken { get; set; }
-        [JsonIgnore]
+        
         public DateTime? RefreshTokenExpiry { get; set; }
     }
 }

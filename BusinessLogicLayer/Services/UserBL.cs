@@ -3,8 +3,6 @@ using RepoLayer.Interfaces;
 using DataAccessLayer.Utilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
@@ -17,6 +15,7 @@ using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Security.Cryptography;
+using ModelLayer.Models;
 
 
 namespace BusinessLogicLayer.Services
@@ -44,14 +43,24 @@ namespace BusinessLogicLayer.Services
             StartRabbitMQConsumer();
         }
 
-        public string RegisterUser(User user)
+        public string RegisterUser(UserRegistrationModel userModel)
         {
-            var existingUser = _userRepository.GetUserByEmail(user.Email);
+            var existingUser = _userRepository.GetUserByEmail(userModel.Email);
             if (existingUser != null)
             {
                 throw new InvalidOperationException("User with this email already exists.");
             }
-            user.Password = PasswordHelper.HashPassword(user.Password);
+
+            var user = new User
+            {
+                FirstName = userModel.FirstName,
+                LastName = userModel.LastName,
+                Email = userModel.Email,
+                Password = PasswordHelper.HashPassword(userModel.Password),
+                RefreshToken = GenerateRefreshToken(),
+                RefreshTokenExpiry = DateTime.UtcNow.AddDays(7)
+            };
+
             _userRepository.RegisterUser(user);
             var token = GenerateJwtToken(user);
 
@@ -62,11 +71,11 @@ namespace BusinessLogicLayer.Services
                 Body = $"Congratulations! You have successfully registered on FundooNotes.<br/> Your token: {token}"
             };
 
-            // Publish the email message to RabbitMQ
             PublishToQueue("emailQueue", JsonConvert.SerializeObject(emailMessage));
 
             return token;
         }
+
 
         private void PublishToQueue(string queueName, string message)
         {
@@ -86,7 +95,6 @@ namespace BusinessLogicLayer.Services
 
                 var body = Encoding.UTF8.GetBytes(message);
 
-                // Publish the message to the queue
                 channel.BasicPublish(exchange: "", routingKey: queueName, basicProperties: null, body: body);
 
                 Console.WriteLine($" [x] Sent message to {queueName}: {message}");
@@ -290,7 +298,7 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        public string GenerateJwtToken(User user, int expiresInMinutes = 15)
+        public string GenerateJwtToken(User user, int expiresInMinutes = 60)
         {
             var jwtSettings = _configuration.GetSection("JwtSettings");
 

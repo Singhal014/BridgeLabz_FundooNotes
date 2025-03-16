@@ -37,21 +37,12 @@ public class NoteBL : INoteBL
         _noteRepository.UpdateNote(note, userId);
     }
 
-    
-
-
-
 
     public void ArchiveNote(int noteId, int userId)
     {
         var note = _noteRepository.GetNoteById(noteId);
         if (note != null && note.CreatedBy == userId)
         {
-            if (note.IsTrashed)
-            {
-                throw new InvalidOperationException("Cannot archive a trashed note.");
-            }
-
             note.IsArchived = true;
             _noteRepository.UpdateNote(note, userId);
         }
@@ -88,7 +79,7 @@ public class NoteBL : INoteBL
         {
             if (note.IsArchived)
             {
-                throw new InvalidOperationException("Cannot trash an archived note. Please unarchive it first.");
+                note.IsArchived = false; 
             }
 
             if (!note.IsTrashed)
@@ -98,12 +89,10 @@ public class NoteBL : INoteBL
             }
             else
             {
-                _noteRepository.DeleteNote(noteId, userId); 
+                _noteRepository.DeleteNote(noteId, userId);
             }
         }
     }
-
-
 
     public IEnumerable<Note> GetTrashedNotes(int userId)
     {
@@ -142,17 +131,11 @@ public class NoteBL : INoteBL
         }
     }
 
-
-
-
-
-
     public int GetUserIdFromToken(string token)
     {
         return _userService.GetUserIdFromToken(token);
     }
 
-    // Label Methods
     public void AddLabel(Label label)
     {
         _noteRepository.AddLabel(label);
@@ -184,54 +167,46 @@ public class NoteBL : INoteBL
 
     public void InviteCollaborator(int noteId, string email)
     {
-        // Check if the email is registered
         var user = _userService.GetUserByEmail(email);
         if (user == null)
         {
             throw new InvalidOperationException("User with this email is not registered.");
         }
 
-        // Check if the note exists
         var note = _noteRepository.GetNoteById(noteId);
         if (note == null)
         {
             throw new InvalidOperationException("Note not found.");
         }
 
-        // Add collaborator to the note
         _noteRepository.AddCollaborator(noteId, user.Id);
     }
 
     public void RemoveCollaborator(int noteId, string email)
     {
-        // Check if the email is registered
         var user = _userService.GetUserByEmail(email);
         if (user == null)
         {
             throw new InvalidOperationException("User with this email is not registered.");
         }
 
-        // Check if the note exists
         var note = _noteRepository.GetNoteById(noteId);
         if (note == null)
         {
             throw new InvalidOperationException("Note not found.");
         }
 
-        // Remove collaborator from the note
         _noteRepository.RemoveCollaborator(noteId, user.Id);
     }
 
     public IEnumerable<User> GetCollaboratorsByNoteId(int noteId)
     {
-        // Check if the note exists
         var note = _noteRepository.GetNoteById(noteId);
         if (note == null)
         {
             throw new InvalidOperationException("Note not found.");
         }
 
-        // Get collaborators for the note
         return _noteRepository.GetCollaboratorsByNoteId(noteId);
     }
 }

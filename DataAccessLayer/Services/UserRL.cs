@@ -31,9 +31,7 @@ namespace DataAccessLayer.Repositories
             var existingUser = _context.Users.FirstOrDefault(u => u.Id == user.Id);
             if (existingUser != null)
             {
-                // Update only the necessary fields
                 existingUser.IsVerified = user.IsVerified;
-                //existingUser.VerificationToken = user.VerificationToken;
                 existingUser.Password = user.Password;
 
 

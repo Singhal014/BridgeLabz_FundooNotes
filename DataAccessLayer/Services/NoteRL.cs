@@ -140,16 +140,19 @@ namespace RepoLayer.Services
 
                 InvalidateCache($"note_{noteId}");
 
-                var notes = _context.Notes
-                    .Where(n => n.CreatedBy == userId && !n.IsTrashed && !n.IsArchived)
-                    .Include(n => n.Labels)
-                    .Include(n => n.Collaborators)
-                    .AsSplitQuery()
-                    .ToList();
+                var cachedNotes = _cache.GetString($"notes_{userId}");
 
-                _cache.SetString($"notes_{userId}", JsonConvert.SerializeObject(notes));
+                if (!string.IsNullOrEmpty(cachedNotes))
+                {
+                    var notesList = JsonConvert.DeserializeObject<List<Note>>(cachedNotes);
+
+                    notesList.RemoveAll(n => n.Id == noteId);
+
+                    _cache.SetString($"notes_{userId}", JsonConvert.SerializeObject(notesList));
+                }
             }
         }
+
 
 
         public IEnumerable<Note> GetArchivedNotes(int userId)

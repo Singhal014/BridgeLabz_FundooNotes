@@ -340,12 +340,6 @@ namespace PresentationLayer.Controllers
                     return NotFound(new { Message = "Note not found or access denied.", Success = false });
                 }
 
-                //if (note.IsArchived)
-                //{
-                //    _logger.LogWarning($"Cannot trash an archived note ID: {id}.");
-                //    return BadRequest(new { Message = "Cannot trash an archived note. Please unarchive it first.", Success = false });
-                //}
-
                 if (note.IsTrashed)
                 {
                     _logger.LogInformation($"Note ID: {id} is already trashed. Deleting permanently.");

@@ -24,7 +24,6 @@ namespace BusinessLogicLayer.Services
     {
         private readonly IUserRL _userRepository;
         private readonly IConfiguration _configuration;
-
         private readonly ConnectionFactory _rabbitMQFactory;
 
         public UserBl(IUserRL userRepository, IConfiguration configuration)
@@ -223,7 +222,6 @@ namespace BusinessLogicLayer.Services
                 Body = $"To reset your password, click the link: {token}"
             };
 
-            // Publish the email message to RabbitMQ
             PublishToQueue("emailQueue", JsonConvert.SerializeObject(emailMessage));
 
             return true;
